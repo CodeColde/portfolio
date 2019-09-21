@@ -29,51 +29,47 @@ const App = () => {
 
   return (
     <Router>
-      {loading ? (
-        <Preloader />
-      ) : (
-        <div className="App">
-          <NavigationMenu
-            firstTime={loading}
-            hasBackground={navBackground}
-            setBackground={state => setNavBack(state)}
-          />
-          <Route path="/" exact component={Home} />
-          <Route path="/contact" component={Contact} />
-          <Route path="/about" component={About} />
-          <Route path="/work" component={Work} />
-          <Route
-            path="/shuttershare"
-            component={() => (
-              <ShutterShare setNavBackground={state => setNavBack(state)} />
-            )}
-          />
-          <Route
-            path="/adscope"
-            component={() => (
-              <Adscope setNavBackground={state => setNavBack(state)} />
-            )}
-          />
-          <Route
-            path="/tiptopmusic"
-            component={() => (
-              <TiptopMusic setNavBackground={state => setNavBack(state)} />
-            )}
-          />
-          <Route
-            path="/schoolforjustice"
-            component={() => (
-              <SchoolForJustice setNavBackground={state => setNavBack(state)} />
-            )}
-          />
-          <Route
-            path="/ziggodamtotdamloop"
-            component={() => (
-              <ZiggoDamTotDamLoop setNavBackground={state => setNavBack(state)} />
-            )}
-          />
-        </div>
-      )}
+      <div className="App">
+        <NavigationMenu
+          firstTime={loading}
+          hasBackground={navBackground}
+          setBackground={state => setNavBack(state)}
+        />
+        <Route path="/" exact component={Home} />
+        <Route path="/contact" component={Contact} />
+        <Route path="/about" component={About} />
+        <Route path="/work" component={Work} />
+        <Route
+          path="/shuttershare"
+          component={() => (
+            <ShutterShare setNavBackground={state => setNavBack(state)} />
+          )}
+        />
+        <Route
+          path="/adscope"
+          component={() => (
+            <Adscope setNavBackground={state => setNavBack(state)} />
+          )}
+        />
+        <Route
+          path="/tiptopmusic"
+          component={() => (
+            <TiptopMusic setNavBackground={state => setNavBack(state)} />
+          )}
+        />
+        <Route
+          path="/schoolforjustice"
+          component={() => (
+            <SchoolForJustice setNavBackground={state => setNavBack(state)} />
+          )}
+        />
+        <Route
+          path="/ziggodamtotdamloop"
+          component={() => (
+            <ZiggoDamTotDamLoop setNavBackground={state => setNavBack(state)} />
+          )}
+        />
+      </div>
     </Router>
   );
 };
