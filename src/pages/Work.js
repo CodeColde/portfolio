@@ -1,5 +1,4 @@
-import React, { useRef, useState, useEffect } from "react";
-import { withRouter } from "react-router-dom";
+import React, { useRef, useState } from "react";
 import {
   Wrapper,
   NumberList,
@@ -20,8 +19,9 @@ import {
 } from "../styles/Work.styles";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import useDelayedLinking from "../utils/useDelayedLinking";
 
-const Work = ({ history }) => {
+const Work = () => {
   const [carouselSet, setCarousel] = useState(false);
   const [currentSlide, setSlide] = useState(1);
   const [animateHome, setAnimeHome] = useState(false);
@@ -29,19 +29,8 @@ const Work = ({ history }) => {
   const [coord, setCoords] = useState();
   const carousel = useRef(null);
 
-  useEffect(() => {
-    animateHome &&
-      setTimeout(() => {
-        history.push("/");
-      }, 400);
-  }, [animateHome, history]);
-
-  useEffect(() => {
-    toCase &&
-      setTimeout(() => {
-        history.push(toCase);
-      }, 1000);
-  }, [toCase, history]);
+  useDelayedLinking(400, "/", animateHome);
+  useDelayedLinking(1000, toCase, toCase);
 
   if (!carouselSet) {
     setCarousel(true);
@@ -198,4 +187,4 @@ const Work = ({ history }) => {
   );
 };
 
-export default withRouter(Work);
+export default Work;

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { withRouter } from "react-router-dom";
 import {
   Wrapper,
@@ -23,23 +23,14 @@ import {
   Time,
   Client
 } from "../styles/About.styles";
+import useDelayedLinking from "../utils/useDelayedLinking";
 
-const About = ({ history }) => {
+const About = () => {
   const [animateWork, setAnimateWork] = useState(false);
   const [animateHome, setAnimateHome] = useState(false);
 
-  useEffect(() => {
-    animateWork &&
-      setTimeout(() => {
-        setAnimateWork(false);
-        history.push("/work");
-      }, 400);
-    animateHome &&
-      setTimeout(() => {
-        setAnimateHome(false);
-        history.push("/");
-      }, 400);
-  }, [animateWork, animateHome, history]);
+  useDelayedLinking(400, '/work', animateWork);
+  useDelayedLinking(400, '/', animateHome);
 
   const canada = require("../assets/images/canada.jpg");
 
