@@ -1,17 +1,12 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Wrapper, Container, Header } from "../styles/Contact.styles";
 import { HomeLink, TextLink } from "../styles/Work.styles";
-import { withRouter } from "react-router";
+import useDelayedLinking from "../utils/useDelayedLinking";
 
-const Contact = ({ history }) => {
+const Contact = () => {
   const [animate, setAnimate] = useState(false);
-  useEffect(() => {
-    animate &&
-      setTimeout(() => {
-        history.push("/");
-        setAnimate(false);
-      }, 400);
-  }, [animate, history]);
+
+  useDelayedLinking(400, "/", animate);
 
   return (
     <Wrapper>
@@ -26,4 +21,4 @@ const Contact = ({ history }) => {
   );
 };
 
-export default withRouter(Contact);
+export default Contact;
