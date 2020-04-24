@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from "react";
-import { withRouter } from "react-router-dom";
+import React, { useState } from "react";
 import "../assets/images/cover-img.jpg";
 import {
   Wrapper,
@@ -14,23 +13,15 @@ import {
   AboutLink,
   AboutText
 } from "../styles/Home.styles";
+import useDelayedLinking from "../utils/useDelayedLinking";
 
-const Home = ({ history }) => {
+const Home = () => {
   const [animateWork, setAnimateWork] = useState(false);
   const [animateAbout, setAnimateAbout] = useState(false);
 
-  useEffect(() => {
-    animateWork &&
-      setTimeout(() => {
-        history.push("/work");
-        setAnimateWork(false);
-      }, 400);
-    animateAbout &&
-      setTimeout(() => {
-        history.push("/about");
-        setAnimateAbout(false);
-      }, 400);
-  }, [animateWork, animateAbout, history]);
+  useDelayedLinking(400, "/work", animateWork);
+  useDelayedLinking(400, "/about", animateAbout);
+
   const background = require("../assets/images/cover-img.jpg");
   return (
     <Wrapper>
@@ -55,4 +46,4 @@ const Home = ({ history }) => {
   );
 };
 
-export default withRouter(Home);
+export default Home;
