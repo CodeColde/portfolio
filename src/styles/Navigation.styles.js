@@ -40,7 +40,7 @@ export const Wrapper = styled.div`
             width: 100%;
             height: 100%;
             background-color: ${theme.colors.black}
-            animation: ${closeNavigation} 0.4s ease-in-out 0.3s 1 normal forwards;      
+            animation: ${closeNavigation} 0.4s ease-in-out 0.3s 1 normal forwards;
           `}
 `;
 
@@ -141,6 +141,29 @@ export const Spanner = styled.span`
     `}
 `;
 
+export const ContactContainer = styled.div`
+  position: absolute;
+  bottom: 3%;
+  left: 2%;
+  opacity: 0;
+  z-index: 1;
+  display: ${({ open }) => open ? 'block' : 'none'};
+  color: white;
+  ${({ open }) =>
+    open
+      ? css`
+        display: block;
+        animation: ${loadImage} 0.2s ease-in-out 0.7s 1 normal forwards;
+      `
+      : css`
+        display: none;
+      `
+  }
+  a {
+    color: ${theme.colors.lightBlue};
+  }
+`;
+
 export const SocialContainer = styled.ul`
   position: absolute;
   bottom: 3%;
@@ -178,11 +201,11 @@ export const SocialItem = styled.li`
 export const Container = styled.div`
   position: relative;
   transition: height 0.1s ease-in-out, background-color 0.1s ease-in-out, border-radius 0.1s ease-in-out;
-  
+
   ${({ open, hasBackground }) =>
     !open
       ? `
-			left:2%;		
+			left:2%;
 			top:2%;
 			z-index: 5;
 			width: 75px;
@@ -191,7 +214,7 @@ export const Container = styled.div`
 		`
       : `
 			top: 2%;
-			left: 5%;
+			left: 2%;
 			width: 50px;
       height: 50px;
 		`}

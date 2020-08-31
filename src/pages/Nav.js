@@ -5,6 +5,7 @@ import {
   Body,
   Page,
   LinkTag,
+  ContactContainer,
   SocialContainer,
   Spanner
 } from "../styles/Navigation.styles";
@@ -96,11 +97,14 @@ const NavigationMenu = ({ history, hasBackground, setBackground }) => {
           <LinkTag>Work</LinkTag>
           <Spanner opening={linking === "work"} />
         </Page>
-        <Page variant="contact" onClick={() => setLinkHandler("contact")}>
-          <LinkTag>Contact</LinkTag>
-          <Spanner opening={linking === "contact"} />
-        </Page>
+        {/* <Page variant="blog" onClick={() => setLinkHandler("blog")}>
+          <LinkTag>Blog</LinkTag>
+          <Spanner opening={linking === "blog"} />
+        </Page> */}
       </Body>
+      <ContactContainer open={isOn}>
+        <p>For business enquiries, <a href="mailto:hayo.friese@gmail.com">email me</a>.</p>
+      </ContactContainer>
       <SocialContainer open={isOn}>
         <SocialItem>
           <Facebook />
