@@ -20,6 +20,7 @@ import {
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import useDelayedLinking from "../utils/useDelayedLinking";
+import meta from "./cases/meta";
 
 const Work = () => {
   const [carouselSet, setCarousel] = useState(false);
@@ -30,7 +31,7 @@ const Work = () => {
   const carousel = useRef(null);
 
   useDelayedLinking(400, "/", animateHome);
-  useDelayedLinking(1000, toCase, toCase);
+  useDelayedLinking(1000, `/work${toCase}`, toCase);
 
   if (!carouselSet) {
     setCarousel(true);
@@ -52,12 +53,6 @@ const Work = () => {
   const PreviousIcon = require("../assets/icons/left-arrow.png");
   const NextIcon = require("../assets/icons/right-arrow.png");
 
-  const CaseOne = require("../assets/cases/case-1-shuttershare/shuttershare-hero.jpg");
-  const CaseTwo = require("../assets/cases/case-2-adscope/adscope-hero.jpg");
-  const CaseThree = require("../assets/cases/case-3-tiptopmusic/tiptopmusic-hero.jpg");
-  const CaseFour = require("../assets/cases/case-4-schoolforjustice/schoolforjustice-hero.jpg");
-  const CaseFive = require("../assets/cases/case-5-ziggodamtotdamloop/damtotdamloop-hero.jpg");
-
   const handleCaseSwap = (e, uri) =>
     e.x < coord + 15 && e.x > coord - 15 && setCase(uri);
 
@@ -69,106 +64,28 @@ const Work = () => {
         </HomeLink>
         <Section>
           <SliderContainer {...settings} ref={carousel} toCase={!!toCase}>
-            <div>
-              <SlideWrapper>
-                <LinkWrap coverImage={CaseOne} active={toCase === "/shuttershare"}>
-                  <Overlay
-                    active={!!toCase}
-                    onMouseDown={e => setCoords(e.nativeEvent.x)}
-                    onMouseUp={e => handleCaseSwap(e.nativeEvent, "/shuttershare")}
-                  >
-                    <ContentWrap>
-                      <CaseTitle>
-                        ShutterShare
-                        <Spanner />
-                      </CaseTitle>
-                      <Subtitle>Back-End</Subtitle>
-                      <Subtitle>Northumbria University</Subtitle>
-                    </ContentWrap>
-                  </Overlay>
-                </LinkWrap>
-              </SlideWrapper>
-            </div>
-            <div>
-              <SlideWrapper>
-                <LinkWrap coverImage={CaseTwo} active={toCase === "/adscope"}>
-                  <Overlay
-                    active={!!toCase}
-                    onMouseDown={e => setCoords(e.nativeEvent.x)}
-                    onMouseUp={e => handleCaseSwap(e.nativeEvent, "/adscope")}
-                  >
-                    <ContentWrap>
-                      <CaseTitle>
-                        Adscope
-                        <Spanner />
-                      </CaseTitle>
-                      <Subtitle>UX . Back-End</Subtitle>
-                      <Subtitle>Northumbria University</Subtitle>
-                    </ContentWrap>
-                  </Overlay>
-                </LinkWrap>
-              </SlideWrapper>
-            </div>
-            <div>
-              <SlideWrapper>
-                <LinkWrap coverImage={CaseThree} active={toCase === "/tiptopmusic"}>
-                  <Overlay
-                    active={!!toCase}
-                    onMouseDown={e => setCoords(e.nativeEvent.x)}
-                    onMouseUp={e => handleCaseSwap(e.nativeEvent, "/tiptopmusic")}
-                  >
-                    <ContentWrap>
-                      <CaseTitle>
-                        TipTop Music
-                        <Spanner />
-                      </CaseTitle>
-                      <Subtitle>Front-End</Subtitle>
-                      <Subtitle>Northumbria University</Subtitle>
-                    </ContentWrap>
-                  </Overlay>
-                </LinkWrap>
-              </SlideWrapper>
-            </div>
-            <div>
-              <SlideWrapper>
-                <LinkWrap coverImage={CaseFour} active={toCase === "/schoolforjustice"}>
-                  <Overlay
-                    active={!!toCase}
-                    onMouseDown={e => setCoords(e.nativeEvent.x)}
-                    onMouseUp={e => handleCaseSwap(e.nativeEvent, "/schoolforjustice")}
-                  >
-                    <ContentWrap>
-                      <CaseTitle>
-                        School For Justice
-                        <Spanner />
-                      </CaseTitle>
-                      <Subtitle>Front-End</Subtitle>
-                      <Subtitle>J. Walter Thompson Amsterdam</Subtitle>
-                    </ContentWrap>
-                  </Overlay>
-                </LinkWrap>
-              </SlideWrapper>
-            </div>
-            <div>
-              <SlideWrapper>
-                <LinkWrap coverImage={CaseFive} active={toCase === "/ziggodamtotdamloop"}>
-                  <Overlay
-                    active={!!toCase}
-                    onMouseDown={e => setCoords(e.nativeEvent.x)}
-                    onMouseUp={e => handleCaseSwap(e.nativeEvent, "/ziggodamtotdamloop")}
-                  >
-                    <ContentWrap>
-                      <CaseTitle>
-                        Ziggo Dam Tot Dam Loop
-                        <Spanner />
-                      </CaseTitle>
-                      <Subtitle>Conceptualization</Subtitle>
-                      <Subtitle>J. Walter Thompson Amsterdam</Subtitle>
-                    </ContentWrap>
-                  </Overlay>
-                </LinkWrap>
-              </SlideWrapper>
-            </div>
+            {meta.map(el => (
+              <div key={el.link}>
+                <SlideWrapper>
+                  <LinkWrap coverImage={el.coverImg} active={toCase === el.link}>
+                    <Overlay
+                      active={!!toCase}
+                      onMouseDown={e => setCoords(e.nativeEvent.x)}
+                      onMouseUp={e => handleCaseSwap(e.nativeEvent, el.link)}
+                    >
+                      <ContentWrap>
+                        <CaseTitle>
+                          {el.title}
+                          <Spanner />
+                        </CaseTitle>
+                        <Subtitle>{el.tools.join(" . ")}</Subtitle>
+                        <Subtitle>{el.location}</Subtitle>
+                      </ContentWrap>
+                    </Overlay>
+                  </LinkWrap>
+                </SlideWrapper>
+              </div>
+            ))}
           </SliderContainer>
           <NumberList navigating={!!toCase}>
             <SlickSwitch onClick={() => carousel.current.slickPrev()}>

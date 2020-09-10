@@ -22,7 +22,7 @@ export const HomeLink = styled.div`
   bottom: 0;
   height: 100%;
   margin: 0;
-  z-index: 3;
+  z-index: 10;
   transition: background-color 0.1s ease-in-out, width 0.1s ease-in-out;
 
   &:hover {

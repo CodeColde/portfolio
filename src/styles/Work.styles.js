@@ -21,13 +21,13 @@ export const HomeLink = styled.section`
   top: 0;
   height: 6%;
   margin: 0;
-  z-index: 3;
+  z-index: 11;
   transition: background-color 0.1s ease-in-out, height 0.1s ease-in-out,
     top 0.2s ease-in-out;
   ${({ animating }) =>
     animating &&
     css`
-      z-index: 3;
+      z-index: 11;
       animation: ${workToHome} 0.2s ease-in-out 0s 1;
       animation-fill-mode: forwards;
       > p {

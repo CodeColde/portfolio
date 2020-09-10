@@ -28,11 +28,11 @@ import {
   CaseImagesCenter,
   NextLink,
   NextCaseTitle,
-  BackButton,
-  BackArrow,
   CaseImageCenterLarge
 } from "../../styles/Case.styles";
 import { withRouter } from "react-router";
+import BackButton from "../../components/BackButton";
+import storeNavBg from "../../utils/storeNavBg";
 
 // Has a scroll function to detect if the body is a black background and therefore
 // Has to switch the backbutton to a black background
@@ -43,30 +43,14 @@ class TiptopMusic extends Component {
     this.introRef = createRef();
 
     this.state = {
-      toBack: false,
-      introTop: 0,
-      hasBackground: false,
       animateCase: ""
     };
   }
 
-  componentDidMount() {
-    window.addEventListener("scroll", this.handleScroll);
-    this.setState({
-      introTop: this.introRef.current.getBoundingClientRect().top - 40
-    });
-  }
-
   componentDidUpdate() {
-    if (this.state.toBack) {
-      setTimeout(() => {
-        this.props.setNavBackground(false);
-        this.props.history.push("/work");
-      }, 400);
-    }
     if (this.state.animateCase) {
       setTimeout(() => {
-        this.props.setNavBackground(false);
+        storeNavBg(false);
 
         this.props.history.push(this.state.animateCase);
         window.scrollTo(0, 0);
@@ -74,40 +58,13 @@ class TiptopMusic extends Component {
     }
   }
 
-  componentWillUnmount() {
-    if (this.state.toBack) {
-      window.scrollTo(0, 0);
-    }
-    window.removeEventListener("scroll", this.handleScroll);
-  }
-
-  handleScroll = () => {
-    const introTop = this.introRef.current.getBoundingClientRect().top;
-    if (introTop < 40) {
-      this.setState({
-        hasBackground: true
-      });
-      this.props.setNavBackground(true);
-    } else {
-      this.setState({
-        hasBackground: false
-      });
-      this.props.setNavBackground(false);
-    }
-  };
-
   render() {
     const hero = require("../../assets/cases/case-3-tiptopmusic/tiptopmusic-hero.jpg");
-    const backButton = require("../../assets/icons/back.png");
     return (
       <Fragment>
         <BackButton
-          onClick={() => this.setState({ toBack: true, hasBackground: false })}
-          toBack={this.state.toBack}
-          hasBackground={this.state.hasBackground}
-        >
-          <BackArrow src={backButton} alt="Back to work" />
-        </BackButton>
+          bgRef={this.introRef}
+        />
         <CaseWrapper>
           <Hero image={hero}>
             <div>

@@ -100,6 +100,16 @@ const About = () => {
                 See case studies for information of my tenure
               </DetailPoint>
             </DetailBlock>
+            <DetailBlock>
+              <RoleTime>
+                <Role>Frontend Developer</Role>
+                <Time>2020 (Current)</Time>
+              </RoleTime>
+              <Client>Newzoo</Client>
+              <DetailPoint>
+                Core team developing the Newzoo Platform
+              </DetailPoint>
+            </DetailBlock>
           </ExperienceContainer>
           <ExperienceContainer>
             <ExperienceTitle>EDUCATION</ExperienceTitle>

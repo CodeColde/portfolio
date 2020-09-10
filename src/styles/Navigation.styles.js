@@ -10,7 +10,7 @@ import {
 import { Bar1, Bar2, Bar3 } from "../components/NavButton";
 
 export const Wrapper = styled.div`
-  z-index: 4;
+  z-index: 999;
   right: 2%;
   top: 2%;
   position: fixed;
@@ -25,7 +25,7 @@ export const Wrapper = styled.div`
           height: 80px;
 
           &:hover {
-            border-radius: 50px;
+            border-radius: 30px;
           }
         `
       : open
@@ -222,7 +222,7 @@ export const Container = styled.div`
   &:hover {
     cursor: pointer;
     background-color: ${({ open }) => !open && theme.colors.black};
-    border-radius: 50%;
+    border-radius: 25px;
 
     ${Bar1}, ${Bar2}, ${Bar3} {
       width: 100% !important;

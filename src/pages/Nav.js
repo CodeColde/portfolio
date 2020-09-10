@@ -12,18 +12,34 @@ import {
 import { SocialItem } from "../styles/Navigation.styles";
 import {
   Instagram,
-  Facebook,
+  Twitch,
   Twitter,
   Github,
-  LinkedIn
+  LinkedIn,
+  Medium
 } from "../components/Socials";
 import { withRouter } from "react-router";
 import NavButton from "../components/NavButton";
+import storeNavBg, { stgname } from "../utils/storeNavBg";
 
-const NavigationMenu = ({ history, hasBackground, setBackground }) => {
+const NavigationMenu = ({ history }) => {
+  const [bg, setBg] = useState(!!sessionStorage.getItem(stgname));
   const [isOn, setState] = useState(false);
   const [shouldAnimate, setShouldAnimate] = useState(false);
   const [linking, setLink] = useState("");
+
+  useEffect(() => {
+    const storageHandler = () => {
+      if (bg !== !!sessionStorage.getItem(stgname)) {
+        setBg(!!sessionStorage.getItem(stgname));
+      }
+    };
+    window.addEventListener('scroll', storageHandler);
+
+    return () => {
+      window.removeEventListener('scroll', storageHandler)
+    }
+  }, [bg]);
 
   useEffect(() => {
     !!linking &&
@@ -44,18 +60,18 @@ const NavigationMenu = ({ history, hasBackground, setBackground }) => {
             setState(false);
             setLink("");
             break;
-          case "contact":
-            history.push("/contact");
+          case "blog":
+            history.push("/blog");
             setState(false);
             setLink("");
             break;
           default:
             setLink("");
         }
-        setBackground(false);
+        storeNavBg(false);
         window.scrollTo(0, 0);
-      }, 400);
-  }, [linking, history, setBackground]);
+      }, 300);
+  }, [linking, history]);
 
   useEffect(() => {
     shouldAnimate &&
@@ -80,7 +96,7 @@ const NavigationMenu = ({ history, hasBackground, setBackground }) => {
       <Container
         open={isOn}
         onClick={closeHandler}
-        hasBackground={hasBackground}
+        hasBackground={bg}
       >
         <NavButton open={isOn} />
       </Container>
@@ -97,17 +113,17 @@ const NavigationMenu = ({ history, hasBackground, setBackground }) => {
           <LinkTag>Work</LinkTag>
           <Spanner opening={linking === "work"} />
         </Page>
-        {/* <Page variant="blog" onClick={() => setLinkHandler("blog")}>
+        <Page variant="blog" onClick={() => setLinkHandler("blog")}>
           <LinkTag>Blog</LinkTag>
           <Spanner opening={linking === "blog"} />
-        </Page> */}
+        </Page>
       </Body>
       <ContactContainer open={isOn}>
-        <p>For business enquiries, <a href="mailto:hayo.friese@gmail.com">email me</a>.</p>
+        <p>For business enquiries, <a href="mailto:hayo.web@gmail.com">email me</a>.</p>
       </ContactContainer>
       <SocialContainer open={isOn}>
         <SocialItem>
-          <Facebook />
+          <Twitch />
         </SocialItem>
         <SocialItem>
           <Twitter />
@@ -120,6 +136,9 @@ const NavigationMenu = ({ history, hasBackground, setBackground }) => {
         </SocialItem>
         <SocialItem>
           <Github />
+        </SocialItem>
+        <SocialItem>
+          <Medium />
         </SocialItem>
       </SocialContainer>
     </Wrapper>

@@ -1,47 +1,6 @@
 import styled, { css } from "styled-components";
 import theme from "./theme";
-import { caseToWork, disappear, toWork } from "../animation/keyframes";
-
-export const BackButton = styled.div`
-  z-index: 3;
-  left: 2%;
-  padding: 19px;
-  top: 2%;
-  height: 75px;
-  width: 75px;
-  position: fixed;
-  float: left;
-  transition: background-color 0.1s ease-in-out, border-radius 0.1s ease-in-out,
-    opacity 0.3s ease-in-out;
-  ${({ toBack }) =>
-    toBack &&
-    css`
-      z-index: 10;
-      animation: ${caseToWork} 0.2s ease-in-out 0s 1;
-      animation-fill-mode: forwards;
-
-      > img {
-        animation: ${disappear} 0.2s ease-in-out 0s 1;
-        animation-fill-mode: forwards;
-      }
-    `}
-  background-color: ${({ hasBackground }) =>
-    hasBackground && theme.colors.black};
-
-  
-
-  &:hover {
-    cursor: pointer;
-    border-radius: 50%;
-    background-color: ${theme.colors.red} !important;
-  }
-`;
-
-export const BackArrow = styled.img`
-  max-width: 100%;
-  max-height: 100%;
-  position: relative;
-`;
+import { toWork, titleFadeIn } from "../animation/keyframes";
 
 const ContentWrapper = styled.section`
   padding: 80px 17%;
@@ -115,8 +74,11 @@ export const HeroOverlay = styled.div`
 `;
 
 export const TitleTab = styled.div`
+  animation: ${titleFadeIn} 0.5s ease-in-out 0s 1;
+  animation-fill-mode: forwards;
   background-color: rgba(0, 0, 0, 0.7);
   width: 52%;
+  left: 0;
   position: absolute;
   bottom: 12%;
   color: white;

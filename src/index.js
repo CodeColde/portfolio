@@ -10,17 +10,14 @@ import Work from "./pages/Work";
 import "./styles/root.css";
 import "./styles/media.css";
 import NavigationMenu from "./pages/Nav";
-import ShutterShare from "./pages/cases/ShutterShare";
-import Adscope from "./pages/cases/Adscope";
-import TiptopMusic from "./pages/cases/TiptopMusic";
-import SchoolForJustice from "./pages/cases/SchoolForJustice";
-import ZiggoDamTotDamLoop from "./pages/cases/ZiggoDamTotDamLoop";
 import NotFound from "./pages/404";
 import checkAvailableRoutes from "./utils/availableRoutes";
+import Blog from "./pages/Blog";
+import blogMeta from "./pages/blog/meta";
+import caseMeta from "./pages/cases/meta";
 
 const App = () => {
   const [loading, setLoading] = useState(true);
-  const [navBackground, setNavBack] = useState(false);
 
   useEffect(() => {
     setTimeout(() => {
@@ -29,44 +26,32 @@ const App = () => {
   }, [loading]);
 
   const isAvailableRoute = checkAvailableRoutes();
-
   return (
     <div className="App">
       <Router>
-        {isAvailableRoute && <NavigationMenu
-          firstTime={loading}
-          hasBackground={navBackground}
-          setBackground={state => setNavBack(state)}
-        />}
+        {isAvailableRoute && <NavigationMenu firstTime={loading} />}
         <Switch>
           <Route exact path="/" component={Home} />
           <Route exact path="/about" component={About} />
           <Route exact path="/work" component={Work} />
-          <Route
-            exact
-            path="/shuttershare"
-            component={() => <ShutterShare setNavBackground={state => setNavBack(state)} />}
-          />
-          <Route
-            exact
-            path="/adscope"
-            component={() => <Adscope setNavBackground={state => setNavBack(state)} />}
-          />
-          <Route
-            exact
-            path="/tiptopmusic"
-            component={() => <TiptopMusic setNavBackground={state => setNavBack(state)} />}
-          />
-          <Route
-            exact
-            path="/schoolforjustice"
-            component={() => <SchoolForJustice setNavBackground={state => setNavBack(state)} />}
-          />
-          <Route
-            exact
-            path="/ziggodamtotdamloop"
-            component={() => <ZiggoDamTotDamLoop setNavBackground={state => setNavBack(state)} />}
-          /> */}
+          {caseMeta.map(el => (
+            <Route
+              exact
+              key={el.link}
+              path={`/work${el.link}`}
+              component={el.component}
+            />
+          ))}
+          <Route exact path="/blog" component={Blog} />
+          {blogMeta.map(el => (
+            <Route
+              exact
+              key={el.link}
+              path={`/blog${el.link}`}
+              component={el.component}
+            />
+          ))
+          }
           <Route component={NotFound} />
         </Switch>
       </Router>

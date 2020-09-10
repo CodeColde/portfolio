@@ -201,3 +201,72 @@ export const caseToWork = keyframes`
     background-color: ${theme.colors.red};
   }
 `;
+
+export const titleFadeIn = keyframes`
+  0% {
+    left: -52%;
+  }
+  100% {
+    left: 0;
+  }
+`;
+
+export const tagBlogToPost = keyframes`
+  0% {
+    left: 0;
+  }
+
+  50% {
+    left: -15vw;
+  }
+
+  100% {
+    left: -15vw;
+  }
+`;
+
+export const contentBlogToPost = keyframes`
+  0% {
+    left: 15vw;
+    bottom: 0;
+  }
+  50% {
+    left: 0vw;
+    bottom: 0;
+  }
+  100% {
+    left: 0vw;
+    bottom: -350px;
+  }
+`;
+
+export const postToBlog = keyframes`
+  0% {
+    left: 2%;
+    border-radius: 50%;
+    top: 2%;
+    height: 75px;
+    width: 75px;
+    background-color: ${theme.colors.black};
+  }
+  50% {
+    border-radius: 0;
+  }
+  100% {
+    left: 0;
+    border-radius: 0;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    background-color: ${theme.colors.black};
+  }
+`;
+
+export const overlayFadeIn = keyframes`
+  0% {
+    background-color: rgba(45, 17, 21, 0);
+  }
+  100% {
+    background-color: rgba(45, 17, 21, 0.4);
+  }
+`;
