@@ -51,7 +51,7 @@ class SchoolForJustice extends Component {
       setTimeout(() => {
         storeNavBg(false);
 
-        this.props.history.push(this.state.animateCase);
+        this.props.history.push(`/work${this.state.animateCase}`);
         window.scrollTo(0, 0);
       }, 400);
     }
