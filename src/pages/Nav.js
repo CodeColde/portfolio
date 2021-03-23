@@ -12,8 +12,6 @@ import {
 import { SocialItem } from "../styles/Navigation.styles";
 import {
   Instagram,
-  Twitch,
-  Twitter,
   Github,
   LinkedIn,
   Medium
@@ -42,35 +40,13 @@ const NavigationMenu = ({ history }) => {
   }, [bg]);
 
   useEffect(() => {
-    !!linking &&
-      setTimeout(() => {
-        switch (linking) {
-          case "home":
-            history.push("/");
-            setState(false);
-            setLink("");
-            break;
-          case "about":
-            history.push("/about");
-            setState(false);
-            setLink("");
-            break;
-          case "work":
-            history.push("/work");
-            setState(false);
-            setLink("");
-            break;
-          case "blog":
-            history.push("/blog");
-            setState(false);
-            setLink("");
-            break;
-          default:
-            setLink("");
-        }
-        storeNavBg(false);
-        window.scrollTo(0, 0);
-      }, 300);
+    !!linking && setTimeout(() => {
+      history.push(linking === "home" ? "/" : `/${linking}`);
+      setState(false);
+      setLink("");
+      storeNavBg(false);
+      window.scrollTo(0, 0);
+    }, 300);
   }, [linking, history]);
 
   useEffect(() => {
@@ -122,12 +98,6 @@ const NavigationMenu = ({ history }) => {
         <p>For business enquiries, <a href="mailto:hayo.web@gmail.com">email me</a>.</p>
       </ContactContainer>
       <SocialContainer open={isOn}>
-        <SocialItem>
-          <Twitch />
-        </SocialItem>
-        <SocialItem>
-          <Twitter />
-        </SocialItem>
         <SocialItem>
           <LinkedIn />
         </SocialItem>
