@@ -10,14 +10,14 @@ import {
 import { Bar1, Bar2, Bar3 } from "../components/NavButton";
 
 export const Wrapper = styled.div`
-  z-index: 999;
+  z-index: 99;
   right: 2%;
   top: 2%;
   position: fixed;
   opacity: 1;
 
-  ${({ open, shouldAnimate, hasBackground }) =>
-    !shouldAnimate
+  ${({ open, shouldanimate, hasbackground }) =>
+    !shouldanimate
       ? css`
           right: 2%;
           top: 2%;
@@ -30,7 +30,7 @@ export const Wrapper = styled.div`
         `
       : open
       ? css`
-          animation: ${openNavigation(hasBackground)} 0.4s ease-in-out 0s 1
+          animation: ${openNavigation(hasbackground)} 0.4s ease-in-out 0s 1
             normal forwards;
         `
       : css`
@@ -39,7 +39,7 @@ export const Wrapper = styled.div`
             border-radius: 0;
             width: 100%;
             height: 100%;
-            background-color: ${theme.colors.black}
+            background-color: ${theme.colors.black};
             animation: ${closeNavigation} 0.4s ease-in-out 0.3s 1 normal forwards;
           `}
 `;
@@ -48,14 +48,14 @@ export const Body = styled.div`
   opacity: 0;
   display: none;
   z-index: 2;
-  ${({ open, shouldAnimate }) =>
+  ${({ open, shouldanimate }) =>
     open
       ? css`
           display: block;
           animation: ${loadImage} 0.3s ease-in-out 0.5s 1 normal forwards;
         `
       : css`
-          ${shouldAnimate && `display: block;`}
+          ${shouldanimate && `display: block;`}
           animation: ${disappear} 0.3s ease-in-out 0s 1 normal;
           animation-fill-mode: forwards;
         `}
@@ -202,7 +202,7 @@ export const Container = styled.div`
   position: relative;
   transition: height 0.1s ease-in-out, background-color 0.1s ease-in-out, border-radius 0.1s ease-in-out;
 
-  ${({ open, hasBackground }) =>
+  ${({ open, hasbackground }) =>
     !open
       ? `
 			left:2%;
@@ -210,7 +210,7 @@ export const Container = styled.div`
 			z-index: 5;
 			width: 75px;
       height: 75px;
-      background-color: ${hasBackground ? theme.colors.black : `transparent`};
+      background-color: ${hasbackground ? theme.colors.black : `transparent`};
 		`
       : `
 			top: 2%;

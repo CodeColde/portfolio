@@ -59,7 +59,7 @@ const Work = () => {
   return (
     <>
       <Wrapper>
-        <HomeLink onClick={() => setAnimeHome(true)} animating={animateHome}>
+        <HomeLink onClick={() => setAnimeHome(true)} animating={animateHome ? animateHome : undefined}>
           <TextLink>Home</TextLink>
         </HomeLink>
         <Section>
@@ -67,9 +67,9 @@ const Work = () => {
             {meta.map(el => (
               <div key={el.link}>
                 <SlideWrapper>
-                  <LinkWrap coverImage={el.coverImg} active={toCase === el.link}>
+                  <LinkWrap coverimage={el.coverImg} active={toCase === el.link ? true : undefined}>
                     <Overlay
-                      active={!!toCase}
+                      active={!!toCase ? true : undefined}
                       onMouseDown={e => setCoords(e.nativeEvent.x)}
                       onMouseUp={e => handleCaseSwap(e.nativeEvent, el.link)}
                     >
@@ -87,7 +87,7 @@ const Work = () => {
               </div>
             ))}
           </SliderContainer>
-          <NumberList navigating={!!toCase}>
+          <NumberList navigating={!!toCase ? true : undefined}>
             <SlickSwitch onClick={() => carousel.current.slickPrev()}>
               <Button src={PreviousIcon} alt="Previous case" />
             </SlickSwitch>

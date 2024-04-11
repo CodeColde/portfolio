@@ -44,7 +44,7 @@ const Blog = () => {
 
   return (
     <Wrapper>
-      <HomeLink onClick={() => setAnimateHome(true)} animating={animateHome}>
+      <HomeLink onClick={() => setAnimateHome(true)} animating={animateHome ? animateHome : undefined}>
         <TextLink>Home</TextLink>
       </HomeLink>
       <SliderContainer {...settings} ref={carousel}>
@@ -52,12 +52,12 @@ const Blog = () => {
           <div key={i}>
             <Slide>
               <ImageContainer image={page.coverImg}>
-                <BlogTagWrapper animating={!!animatePost && animatePost === page.link}>
+                <BlogTagWrapper animating={!!animatePost && animatePost === page.link ? true : undefined}>
                   <Relativer>
                     <BlogTag>{page.tag}</BlogTag>
                   </Relativer>
                 </BlogTagWrapper>
-                <ContentWrapper animating={!!animatePost && animatePost === page.link}>
+                <ContentWrapper animating={!!animatePost && animatePost === page.link ? true : undefined}>
                   <TitleContainer>
                     <Title onClick={() => setAnimatePost(page.link)}>
                       {page.title}

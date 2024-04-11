@@ -25,10 +25,10 @@ const Home = () => {
   const background = require("../assets/images/cover-img.jpg");
   return (
     <Wrapper>
-      <WorkLink onClick={() => setAnimateWork(true)} animating={animateWork}>
+      <WorkLink onClick={() => setAnimateWork(true)} animating={!!animateWork ? animateWork : undefined}>
         <WorkText>Work</WorkText>
       </WorkLink>
-      <AboutLink onClick={() => setAnimateAbout(true)} animating={animateAbout}>
+      <AboutLink onClick={() => setAnimateAbout(true)} animating={!!animateAbout ? animateAbout : undefined}>
         <AboutText>About</AboutText>
       </AboutLink>
       <Article>

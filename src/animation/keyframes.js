@@ -21,6 +21,16 @@ export const toAbout = keyframes`
   }
 `;
 
+export const aboutToHome  = keyframes`
+  0% {
+    width: 8%;
+  }
+
+  100% {
+    width: 50%;
+  }
+`;
+
 export const loadIn = keyframes`
   0% {
     opacity: 0;
@@ -112,9 +122,9 @@ export const openSpan = keyframes`
   }
 `;
 
-export const openNavigation = hasBackground => keyframes`
+export const openNavigation = hasbackground => keyframes`
 	0%{
-    background-color: ${hasBackground ? theme.colors.black : `transparent`};
+    background-color: ${hasbackground ? theme.colors.black : `transparent`};
 		right: 2%;
     top: 2%;
 		width: 80px;
