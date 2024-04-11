@@ -66,7 +66,7 @@ const About = () => {
               </RoleTime>
               <Client>J. Walter Thompson Amsterdam</Client>
               <DetailPoint>
-                Worked on designing an unlaunched app for a car company
+                Worked on designing an unlaunched app for a car company and various other campaigns
               </DetailPoint>
             </DetailBlock>
             <DetailBlock>
@@ -86,7 +86,7 @@ const About = () => {
               </RoleTime>
               <Client>D-TT</Client>
               <DetailPoint>
-                Inspired my desire to pursue web design fulltime
+                Inspired my desire to pursue web development fulltime
               </DetailPoint>
             </DetailBlock>
             <DetailBlock>
@@ -106,7 +106,27 @@ const About = () => {
               </RoleTime>
               <Client>Newzoo</Client>
               <DetailPoint>
-                Core team developing the Newzoo Platform
+                Core team member developing the Newzoo Platform
+              </DetailPoint>
+            </DetailBlock>
+            <DetailBlock>
+              <RoleTime>
+                <Role>Software Engineer</Role>
+                <Time>2021 - 2022</Time>
+              </RoleTime>
+              <Client>Native Instruments</Client>
+              <DetailPoint>
+                Core team member developing the Native Access software
+              </DetailPoint>
+            </DetailBlock>
+            <DetailBlock>
+              <RoleTime>
+                <Role>Product Manager</Role>
+                <Time>2022 (Current)</Time>
+              </RoleTime>
+              <Client>Native Instruments</Client>
+              <DetailPoint>
+                Driving initiatives for catalog management, ownership, onboarding and usage.
               </DetailPoint>
             </DetailBlock>
           </ExperienceContainer>
