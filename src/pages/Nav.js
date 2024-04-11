@@ -16,15 +16,17 @@ import {
   LinkedIn,
   Medium
 } from "../components/Socials";
-import { withRouter } from "react-router";
+import { useNavigate } from "react-router";
 import NavButton from "../components/NavButton";
 import storeNavBg, { stgname } from "../utils/storeNavBg";
 
-const NavigationMenu = ({ history }) => {
+const NavigationMenu = () => {
   const [bg, setBg] = useState(!!sessionStorage.getItem(stgname));
   const [isOn, setState] = useState(false);
-  const [shouldAnimate, setShouldAnimate] = useState(false);
+  const [shouldanimate, setShouldanimate] = useState(false);
   const [linking, setLink] = useState("");
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     const storageHandler = () => {
@@ -41,57 +43,57 @@ const NavigationMenu = ({ history }) => {
 
   useEffect(() => {
     !!linking && setTimeout(() => {
-      history.push(linking === "home" ? "/" : `/${linking}`);
+      navigate(linking === "home" ? "/" : `/${linking}`);
       setState(false);
       setLink("");
       storeNavBg(false);
       window.scrollTo(0, 0);
     }, 300);
-  }, [linking, history]);
+  }, [linking, navigate]);
 
   useEffect(() => {
-    shouldAnimate &&
+    shouldanimate &&
       !isOn &&
       setTimeout(() => {
-        setShouldAnimate(false);
+        setShouldanimate(false);
       }, 600);
-  }, [shouldAnimate, isOn]);
+  }, [shouldanimate, isOn]);
 
   const closeHandler = () => {
-    setShouldAnimate(true);
+    setShouldanimate(true);
     setState(!isOn);
   };
 
   const setLinkHandler = text => {
-    setTimeout(() => setShouldAnimate(false), 300);
+    setTimeout(() => setShouldanimate(false), 300);
     setLink(text);
   };
 
   return (
-    <Wrapper open={isOn} shouldAnimate={shouldAnimate}>
+    <Wrapper open={isOn} shouldanimate={shouldanimate ? shouldanimate : undefined}>
       <Container
         open={isOn}
         onClick={closeHandler}
-        hasBackground={bg}
+        hasbackground={!!bg ? bg : undefined}
       >
         <NavButton open={isOn} />
       </Container>
-      <Body open={isOn} shouldAnimate={shouldAnimate}>
+      <Body open={isOn} shouldanimate={shouldanimate ? shouldanimate : undefined}>
         <Page variant="home" onClick={() => setLinkHandler("home")}>
           <LinkTag>Home</LinkTag>
-          <Spanner opening={linking === "home"} />
+          <Spanner opening={linking === "home" ? true : undefined} />
         </Page>
         <Page variant="about" onClick={() => setLinkHandler("about")}>
           <LinkTag>About</LinkTag>
-          <Spanner opening={linking === "about"} />
+          <Spanner opening={linking === "about" ? true : undefined} />
         </Page>
         <Page variant="work" onClick={() => setLinkHandler("work")}>
           <LinkTag>Work</LinkTag>
-          <Spanner opening={linking === "work"} />
+          <Spanner opening={linking === "work" ? true : undefined} />
         </Page>
         <Page variant="blog" onClick={() => setLinkHandler("blog")}>
           <LinkTag>Blog</LinkTag>
-          <Spanner opening={linking === "blog"} />
+          <Spanner opening={linking === "blog" ? true : undefined} />
         </Page>
       </Body>
       <ContactContainer open={isOn}>
@@ -115,4 +117,4 @@ const NavigationMenu = ({ history }) => {
   );
 };
 
-export default withRouter(NavigationMenu);
+export default NavigationMenu;

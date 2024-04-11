@@ -108,8 +108,8 @@ export const SlideWrapper = styled.div`
 `;
 
 export const LinkWrap = styled.a`
-  ${({ coverImage }) => `
-    background-image: url(${coverImage});
+  ${({ coverimage }) => `
+    background-image: url(${coverimage});
   `}
   height: 70%;
   width: 75%;

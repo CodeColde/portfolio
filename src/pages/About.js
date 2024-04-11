@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { withRouter } from "react-router-dom";
 import {
   Wrapper,
   Heading,
@@ -36,7 +35,7 @@ const About = () => {
 
   return (
     <Wrapper>
-      <HomeLink onClick={() => setAnimateHome(true)} animating={animateHome}>
+      <HomeLink onClick={() => setAnimateHome(true)} animating={!!animateHome ? animateHome : undefined}>
         <HomeText>Home</HomeText>
       </HomeLink>
       <Body>
@@ -187,11 +186,11 @@ const About = () => {
           </ExperienceContainer>
         </Container>
       </Body>
-      <WorkLink onClick={() => setAnimateWork(true)} animating={animateWork}>
+      <WorkLink onClick={() => setAnimateWork(true)} animating={animateWork ? animateWork : undefined}>
         <TextLink>Take a look at some of my work!</TextLink>
       </WorkLink>
     </Wrapper>
   );
 };
 
-export default withRouter(About);
+export default About;

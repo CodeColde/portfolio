@@ -134,8 +134,8 @@ export const NextCase = styled.div`
   ${({ animating }) =>
     animating &&
     css`
-      z-index: 3;
-      animation: ${toWork} 0.3s ease-in-out 0s 1;
+      z-index: 999;
+      animation: ${toWork} 0.4s ease-in-out 0s 1;
       animation-fill-mode: forwards;
       > p {
         position: relative;

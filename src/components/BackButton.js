@@ -2,23 +2,24 @@ import React from 'react';
 import styled, { css } from "styled-components";
 import Arrow from "../assets/icons/back.png";
 import { disappear, postToBlog, caseToWork } from '../animation/keyframes';
-import { useHistory } from 'react-router';
+import { useNavigate, useLocation } from 'react-router';
 import theme from '../styles/theme';
 import storeNavBg from '../utils/storeNavBg';
 
 const BackButton = ({ bgRef }) => {
-  const [hasBackground, setHasBackground] = React.useState(false);
-  const [toBack, setToBack] = React.useState(false);
-  const history = useHistory();
+  const [hasbackground, setHasbackground] = React.useState(false);
+  const [toback, setToback] = React.useState(false);
+  const navigate = useNavigate();
+  const location = useLocation();
 
   React.useEffect(() => {
     const handleScroll = () => {
       if (!!bgRef && bgRef.current) {
         if (bgRef.current.getBoundingClientRect().top < 40) {
-          setHasBackground(true)
+          setHasbackground(true)
           storeNavBg(true);
         } else {
-          setHasBackground(false)
+          setHasbackground(false)
           storeNavBg(false);
         }
       }
@@ -27,34 +28,36 @@ const BackButton = ({ bgRef }) => {
     window.addEventListener("scroll", handleScroll);
 
     return () => {
-      if (toBack) {
+      if (toback) {
         window.scrollTo(0, 0);
       }
       window.removeEventListener("scroll", handleScroll);
     }
-  }, [bgRef, hasBackground, storeNavBg]);
+  }, [bgRef, hasbackground, storeNavBg]);
 
   React.useEffect(() => {
-    if (toBack) {
+    if (toback) {
       setTimeout(() => {
-        history.push(`/${history.location.pathname.split("/")[1]}`);
+        navigate(`/${location.pathname.split("/")[1]}`);
       }, 400);
     }
-  }, [toBack, storeNavBg, history]);
+  }, [toback, storeNavBg, navigate, location]);
 
-  const bgColor = history.location.pathname.split("/")[1] === "work" ? theme.colors.red : theme.colors.black;
-  const animation = history.location.pathname.split("/")[1] === "work" ? caseToWork : postToBlog;
+  const bgcolor = location.pathname.split("/")[1] === "work" ? theme.colors.red : theme.colors.black;
+  // const navigationAnimation = location.pathname.split("/")[1] === "work" ? caseToWork : postToBlog;
+  const navigationAnimation = location.pathname.split("/")[1] === "work";
+
   return (
     <Wrapper
       onClick={() => {
         storeNavBg(false);
-        setToBack(true);
-        setHasBackground(false);
+        setToback(true);
+        setHasbackground(false);
       }}
-      toBack={toBack}
-      hasBackground={hasBackground}
-      animation={animation}
-      bgColor={bgColor}
+      toback={toback ? toback : undefined}
+      hasbackground={hasbackground ? true : undefined}
+      navanimation={!navigationAnimation ? false : undefined}
+      bgcolor={bgcolor}
     >
       <BackArrow src={Arrow} alt="Back to work" />
     </Wrapper>
@@ -74,10 +77,10 @@ const Wrapper = styled.div`
   float: left;
   transition: background-color 0.1s ease-in-out, border-radius 0.1s ease-in-out, opacity 0.3s ease-in-out;
 
-  ${({ toBack }) =>
-    toBack && css`
+  ${({ toback, navanimation }) =>
+    toback && css`
       z-index: 10;
-      animation: ${({ animation }) => animation} 0.2s ease-in-out 0s 1;
+      animation: ${navanimation ? caseToWork : postToBlog} 0.2s ease-in-out 0s 1;
       animation-fill-mode: forwards;
 
       > img {
@@ -85,12 +88,12 @@ const Wrapper = styled.div`
         animation-fill-mode: forwards;
       }
   `}
-  background-color: ${({ hasBackground }) => hasBackground && theme.colors.black};
+  background-color: ${({ hasbackground }) => hasbackground && theme.colors.black};
 
   &:hover {
     cursor: pointer;
     border-radius: 50%;
-    background-color: ${({ bgColor }) => bgColor};
+    background-color: ${({ bgcolor }) => bgcolor};
   }
 `;
 

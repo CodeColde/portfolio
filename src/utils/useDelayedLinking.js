@@ -1,18 +1,18 @@
 import { useEffect } from 'react';
-import { useHistory } from 'react-router';
+import { useNavigate } from 'react-router';
 
 const useDelayedLinking = (delay, pathname, setter) => {
-    const historyHook = useHistory();
+    const navigate = useNavigate();
 
-    const delayer = (history) => setTimeout(() => {
-        history.push(pathname);
+    const delayer = (navigate) => setTimeout(() => {
+        navigate(pathname);
     }, delay)
 
 
      if (typeof setter !== 'undefined') {
          useEffect(() => {
-            setter && delayer(historyHook);
-        }, [historyHook, setter]);
+            setter && delayer(navigate);
+        }, [navigate, setter]);
     } else {
         throw new Error('This hook requires a trigger! Please pass a state trigger through!');
     }

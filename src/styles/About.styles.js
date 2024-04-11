@@ -1,6 +1,6 @@
 import styled, { css } from "styled-components";
 import theme from "./theme";
-import { toWork, toAbout, loadIn } from "../animation/keyframes";
+import { toWork, toAbout, loadIn, aboutToHome } from "../animation/keyframes";
 
 export const Wrapper = styled.main`
   position: relative;
@@ -33,7 +33,7 @@ export const HomeLink = styled.div`
     animating &&
     css`
       z-index: 3;
-      animation: ${toAbout} 0.2s ease-in-out 0s 1;
+      animation: ${aboutToHome} 0.2s ease-in-out 0s 1;
       animation-fill-mode: forwards;
       > p {
         position: relative;
@@ -50,7 +50,6 @@ export const HomeLink = styled.div`
   &:hover > p {
     left: 55%;
     font-weight: 700;
-    color: ${theme.colors.white};
     text-shadow: none;
   }
 `;
@@ -60,7 +59,7 @@ export const HomeText = styled.p`
   top: 50%;
   left: 35%;
   text-transform: uppercase;
-  color: ${theme.colors.green};
+  color: ${theme.colors.white};
   font-weight: 700;
   transition: left 0.1s ease-in-out, color 0.1s ease-in-out,
     font-weight 0.1s ease-in-out;

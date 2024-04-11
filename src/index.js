@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import ReactDOM from "react-dom";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { createRoot } from "react-dom/client";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
 // import Preloader from "./pages/Preloader";
 import Home from "./pages/Home";
@@ -30,36 +30,41 @@ const App = () => {
     <div className="App">
       <Router>
         {isAvailableRoute && <NavigationMenu firstTime={loading} />}
-        <Switch>
-          <Route exact path="/" component={Home} />
-          <Route exact path="/about" component={About} />
-          <Route exact path="/work" component={Work} />
-          {caseMeta.map(el => (
-            <Route
-              exact
-              key={el.link}
-              path={`/work${el.link}`}
-              component={el.component}
-            />
-          ))}
-          <Route exact path="/blog" component={Blog} />
-          {blogMeta.map(el => (
-            <Route
-              exact
-              key={el.link}
-              path={`/blog${el.link}`}
-              component={el.component}
-            />
-          ))
-          }
-          <Route component={NotFound} />
-        </Switch>
+        <Routes>
+          <Route exact path="/" element={<Home />} />
+          <Route exact path="/about" element={<About />} />
+          <Route exact path="/work" element={<Work />} />
+          {caseMeta.map(el => {
+            const CaseComponent = el.component;
+            return (
+              <Route
+                exact
+                key={el.link}
+                path={`/work${el.link}`}
+                element={<CaseComponent />}
+              />
+            );
+          })}
+          <Route exact path="/blog" element={<Blog />} />
+          {blogMeta.map(el => {
+            const BlogEntryComponent = el.component;
+            return (
+              <Route
+                exact
+                key={el.link}
+                path={`/blog${el.link}`}
+                element={<BlogEntryComponent />}
+              />
+            )
+          })}
+          <Route element={NotFound} />
+        </Routes>
       </Router>
     </div>
   );
 };
 
 const rootElement = document.getElementById("root");
-ReactDOM.render(<App />, rootElement);
+createRoot(rootElement).render(<App />);
 
 //https://medium.com/@ItsMeDannyZ/how-to-build-a-progress-bar-with-react-8c5e79731d1f
