@@ -27,7 +27,7 @@ export const aboutToHome  = keyframes`
   }
 
   100% {
-    width: 50%;
+    width: 100%;
   }
 `;
 
