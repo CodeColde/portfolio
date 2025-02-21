@@ -15,7 +15,7 @@ import {
 const AmongUsTool = () => {
   return (
     <Case
-      subtitle="Among Us has gotten many through the tough times of corona. I created a tool to make them better strategists."
+      subtitle="Among Us has gotten many through the tough times of Corona. I created a tool to make them better strategists."
       IntroParagraphs={() => (
         <Paragraph>
           The game is simple: fix the ship with your crewmates, or

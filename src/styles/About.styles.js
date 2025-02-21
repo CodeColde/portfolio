@@ -110,6 +110,14 @@ export const Heading = styled.h1`
   width: 60%;
 `;
 
+export const NewHeading = styled.h1`
+  text-transform: capitalize;
+  color: ${theme.colors.white};
+  line-height: 1;
+  width: 60%;
+  font-size: 3em;
+`;
+
 export const Subtitle = styled.h5`
   width: 100%;
   color: ${theme.colors.white};

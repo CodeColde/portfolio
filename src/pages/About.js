@@ -20,7 +20,8 @@ import {
   RoleTime,
   Role,
   Time,
-  Client
+  Client,
+  NewHeading
 } from "../styles/About.styles";
 import useDelayedLinking from "../utils/useDelayedLinking";
 
@@ -44,7 +45,7 @@ const About = () => {
         </ImageBackground>
         <Container>
           <Hero>
-            <Heading>Who am i?</Heading>
+            <NewHeading>Who am i?</NewHeading>
             <Subtitle>
               So I'm Hayo Friese, a <X>Dutch third culture kid</X>. I've lived
               in Japan, Belgium, Czech Republic, Netherlands, England, and
