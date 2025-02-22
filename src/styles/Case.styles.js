@@ -28,7 +28,7 @@ export const Hero = styled.section`
 export const TitleTab = styled.div`
   animation: ${titleFadeIn} 0.5s ease-in-out 0s 1;
   animation-fill-mode: forwards;
-  background-color: rgba(0, 0, 0, 0.7);
+  background-color: rgba(0, 0, 0, 0.8);
   width: 52%;
   left: 0;
   position: absolute;
@@ -101,7 +101,7 @@ export const InfoList = styled.ul`
 `;
 
 export const InfoItem = styled.li`
-  margin-bottom: 50px;
+  margin-bottom: 24px;
 
   &:nth-child(4) {
     margin-bottom: 0;

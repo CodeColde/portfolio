@@ -29,7 +29,6 @@ export default [
     link: "/shuttershare",
     component: ShutterShare,
     date: "February 2017",
-    live: "http://unn-w13020720.newnumyspace.co.uk/shuttershare/index.php"
   },
   {
     title: "Adscope",
@@ -41,14 +40,13 @@ export default [
     date: "April 2017",
   },
   {
-    title: "TipTop Music",
-    tools: ["Front-End"],
+    title: "Tip Top Music",
+    tools: ["Full Stack", "Product Management", "UX"],
     location: "Northumbria University",
     coverImg: CaseThree,
     link: "/tiptopmusic",
     component: TiptopMusic,
     date: "May 2017",
-    live: "http://ec2-34-214-154-202.us-west-2.compute.amazonaws.com/Final/index.php"
   },
   {
     title: "School for Justice",

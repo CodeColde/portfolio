@@ -11,7 +11,9 @@ import {
   WorkLink,
   WorkText,
   AboutLink,
-  AboutText
+  AboutText,
+  WelcomeContent,
+  HeroImage
 } from "../styles/Home.styles";
 import useDelayedLinking from "../utils/useDelayedLinking";
 
@@ -31,17 +33,17 @@ const Home = () => {
       <AboutLink onClick={() => setAnimateAbout(true)} animating={!!animateAbout ? animateAbout : undefined}>
         <AboutText>About</AboutText>
       </AboutLink>
-      <Article>
+      <WelcomeContent>
         <Title>Hello There.</Title>
         <Caption>
           The name's <Emphasis>Hayo Friese</Emphasis>, web developer and student
           extraordinaire*.
         </Caption>
-      </Article>
-      <Article>
+      </WelcomeContent>
+      <HeroImage>
         <CoverSheet />
         <CoverImg src={background} alt="Hayo Cover Photo" />
-      </Article>
+      </HeroImage>
     </Wrapper>
   );
 };

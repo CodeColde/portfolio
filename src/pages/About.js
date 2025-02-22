@@ -20,7 +20,8 @@ import {
   RoleTime,
   Role,
   Time,
-  Client
+  Client,
+  NewHeading
 } from "../styles/About.styles";
 import useDelayedLinking from "../utils/useDelayedLinking";
 
@@ -44,17 +45,16 @@ const About = () => {
         </ImageBackground>
         <Container>
           <Hero>
-            <Heading>Who am i?</Heading>
+            <NewHeading>Who am i?</NewHeading>
             <Subtitle>
-              So I'm Hayo Friese, a <X>Dutch third culture kid</X>. I've lived
-              in Japan, Belgium, Czech Republic, Netherlands, England, and
-              briefly in Tanzania and Canada. I'm a former <X>dancer</X> and{" "}
-              <X>sk8rboy</X>, <X>gamer</X>, and <X>hobbyist</X> (as in I know
-              how to knit and stuff). In general, I'm just <X>always curious</X>
-              . I'd like to think I'm a solid <X>web developer</X>, but I know I
-              have much to learn, and I make it a mission to learn something new{" "}
-              <X>every day</X>. I hope I get the chance to <X>grow</X> with{" "}
-              <X>you</X>!
+              I'm a <X>Dutch third culture kid</X> who has lived
+              in Japan, Belgium, Czech Republic, Netherlands, England, briefly in
+              Tanzania and Canada, and currently in Germany. I'm a former <X>dancer</X>{" "}
+              and <X>sk8rboy</X>, <X>gamer</X>, <X>cook</X> and <X>hobbyist</X>. In general,
+              I'm just <X>always curious</X>. Professionally, my goal is to <X>make cool{" "}
+              shit</X> with <X>cool people</X>, doing whatever is needed in a team environment.
+              I have much to learn, and I make it a mission to learn something new{" "}
+              <X>every day</X>. I hope I get the chance to <X>grow</X> with{" "} <X>you</X>!
             </Subtitle>
           </Hero>
           <ExperienceContainer>
@@ -122,11 +122,11 @@ const About = () => {
             <DetailBlock>
               <RoleTime>
                 <Role>Product Manager</Role>
-                <Time>2022 (Current)</Time>
+                <Time>2022 - 2024</Time>
               </RoleTime>
               <Client>Native Instruments</Client>
               <DetailPoint>
-                Driving initiatives for catalog management, ownership, onboarding and usage.
+                Driving initiatives for catalog management, ownership, onboarding and usage. Assisted in coding and design when necessary
               </DetailPoint>
             </DetailBlock>
           </ExperienceContainer>

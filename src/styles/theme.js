@@ -13,6 +13,7 @@ const theme = {
   },
   mediaQueries: {
     width: {
+      xs: "500px",
       s: "812px",
       m: "1024px",
       l: "1440px",

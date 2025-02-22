@@ -1,6 +1,6 @@
 import styled, { css } from "styled-components";
 import theme from "../styles/theme";
-import { LargeHead, TinyHead } from "../styles/fonts";
+import { WelcomeHead, LargeHead, TinyHead } from "../styles/fonts";
 import {
   loadIn,
   toWork,
@@ -16,7 +16,7 @@ export const Wrapper = styled.section`
   background-color: ${theme.colors.blue};
 `;
 
-export const WorkLink = styled.article`
+export const WorkLink = styled.div`
   display: block;
   width: 100%;
   text-align: center;
@@ -67,7 +67,7 @@ export const WorkText = styled.p`
     font-weight 0.1s ease-in-out;
 `;
 
-export const AboutLink = styled.article`
+export const AboutLink = styled.div`
   display: block;
   width: 5%;
   text-align: center;
@@ -131,18 +131,30 @@ export const Article = styled.article`
   &:first-child {
     padding: 0 5vw;
   }
+`;
 
+export const WelcomeContent = styled(Article)`
   @media screen and (max-width: ${theme.mediaQueries.width.m}) {
-    &:first-child {
-      width: 100%;
-    }
-    &:nth-child(2) {
-      display: none;
-    }
+    font-size: 16px;
+    width: 100%;
+  }
+
+  @media screen and (max-width: ${theme.mediaQueries.width.s}) {
+    font-size: 12px;
+  }
+
+  @media screen and (max-width: ${theme.mediaQueries.width.xs}) {
+    font-size: 8px;
   }
 `;
 
-export const Title = styled(LargeHead)`
+export const HeroImage = styled(Article)`
+  @media screen and (max-width: ${theme.mediaQueries.width.m}) {
+    display: none;
+  }
+`;
+
+export const Title = styled(WelcomeHead)`
   color: ${theme.colors.white};
   text-transform: uppercase;
   line-height: 1;

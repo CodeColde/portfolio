@@ -156,6 +156,16 @@ export const LinkWrap = styled.a`
       transform: skewX(-10deg);
     }
   }
+
+  @media screen and (max-width: ${theme.mediaQueries.width.m}) {
+    font-size: 12px;
+    width: 100%;
+    border-radius: 0;
+
+    div {
+      border-radius: 0;
+    }
+  }
 `;
 
 export const Spanner = styled.span`
@@ -186,6 +196,21 @@ export const ContentWrap = styled.div`
   width: 80%;
   transform: translate(-50%, -65%);
   font-style: italic;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  @media screen and (max-width: ${theme.mediaQueries.width.m}) {
+    font-size: 16px;
+  }
+
+  @media screen and (max-width: ${theme.mediaQueries.width.s}) {
+    font-size: 12px;
+  }
+
+  @media screen and (max-width: ${theme.mediaQueries.width.xs}) {
+    font-size: 8px;
+  }
 `;
 
 export const CaseTitle = styled.h3`
@@ -210,6 +235,10 @@ export const NumberList = styled.article`
   transform: translateX(-50%);
   color: white;
   z-index: ${({ navigating }) => (navigating ? 0 : 10)};
+
+  @media screen and (max-width: ${theme.mediaQueries.width.m}) {
+    font-size: 16px;
+  }
 `;
 
 export const SlickSwitch = styled.a`

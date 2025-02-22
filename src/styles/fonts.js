@@ -1,5 +1,9 @@
 import styled from "styled-components";
 
+export const WelcomeHead = styled.h1`
+  font-size: 10em;
+`;
+
 export const HugeHead = styled.h1`
   font-size: 12em;
 `;
