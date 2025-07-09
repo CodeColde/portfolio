@@ -1,0 +1,94 @@
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import "slick-carousel/slick/slick.css";
+@import "slick-carousel/slick/slick-theme.css";
+
+@theme {
+  --spacing: 4px;
+
+  --breakpoint-*: initial;
+  --breakpoint-xs: 540px;
+  --breakpoint-sm: 570px;
+  --breakpoint-md: 890px;
+  --breakpoint-lg: 1180px;
+  --breakpoint-xl: 1580px;
+  --breakpoint-2xl: 1600px;
+  --breakpoint-3xl: 1800px;
+
+  --animate-load-main-header: loadHeaders 0.3s ease-in 0.1s 1 forwards;
+  --animate-load-sub-header: loadHeaders 0.3s ease-in 0.2s 1 forwards;
+  --animate-load-in: fadeIn 0.2s ease-in-out 0s forwards;
+  --animate-load-home-image: fadeInImage 0.3s ease-in 0.55s 1 forwards;
+  --animate-nav-body-open: fadeIn 0.3s ease-in-out 0.4s 1 normal forwards;
+  --animate-nav-wrapper-open: openNavigation 0.3s ease-in-out 0s 1 normal forwards;
+  --animate-nav-wrapper-close: closeNavigation 0.3s ease-in-out 0.3s 1 normal forwards;
+  --animate-nav-close: fadeOut 0.3s ease-in-out 0s 1 normal forwards;
+  --animate-load-contact: fadeIn 0.2s ease-in-out 0.6s 1 normal forwards;
+
+  --transition-nav-container: height 0.1s ease-in-out, background-color 0.1s ease-in-out, border-radius 0.1s ease-in-out;
+  --transition-nav-button: width 0.2s ease-in-out, transform 0.2s ease-in-out, opacity 0.2s ease-in-out;
+  --transition-nav-cirle: padding 0.2s ease-in-out;
+  --transition-nav-body: width 0.2s ease-in-out;
+  --transition-nav-span-hover: width 0.3s ease-in-out;
+  --transition-nav-span-open: width 0.4s ease-in-out, height 0.4s ease-in-out;
+  --transition-nav-strip: width 0.1s ease-in-out, translate 1s ease-in-out, rotate 1s ease-in-out, opacity 0.2s ease-in-out;
+  --transition-back-button: background-color 0.4s ease-in-out, border-radius 0.9s ease-in-out;
+
+  @keyframes loadHeaders {
+    0% { left: 100%; };
+    100% { left: 10%; };
+  }
+  @keyframes fadeIn {
+    0% { opacity: 0 };
+    100% { opacity: 1 };
+  }
+  @keyframes fadeInImage {
+    0% { opacity: 0 };
+    100% { opacity: 0.7 };
+  }
+
+  @keyframes fadeOut {
+    0% { opacity: 1 };
+    100% { opacity: 0 };
+  }
+
+  @keyframes openNavigation {
+    0% {
+      right: 2%;
+      top: 2%;
+      width: 80px;
+      height: 80px;
+      border-radius: 28px;
+    }
+    100% {
+      background-color: black;
+      right: 0%;
+      top: 0%;
+      border-radius: 0;
+      width: 100%;
+      height: 100%;
+    }
+  }
+  @keyframes closeNavigation {
+    0%{
+      right: 0%;
+      top:0%;
+      border-radius: 0;
+      width: 100%;
+      height: 100%;
+      background-color: black;
+    }
+    100% {
+      right: 2%;
+      top: 2%;
+      width: 56px;
+      height: 56px;
+      border-radius: 28px;
+      background-color: transparent;
+    }
+  }
+}
