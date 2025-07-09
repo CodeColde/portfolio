@@ -21,7 +21,7 @@ const excerptFont = Orbitron({
 });
 
 const page = async ({ params }: PageProps) => {
-  const { slug } = await params;
+  const { slug } = params;
 
   const caseDetails = await getCaseBySlug(slug);
 

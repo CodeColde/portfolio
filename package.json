@@ -7,6 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
+    "typecheck": "tsc --noEmit",
     "biome": "biome check --write --changed --no-errors-on-unmatched",
     "biome-ci": "biome ci --diagnostic-level=error --reporter=github --changed --no-errors-on-unmatched"
   },
