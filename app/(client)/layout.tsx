@@ -27,7 +27,7 @@ export default function RootLayout({
 				<NavMenu />
 				{children}
 			</body>
-			<GoogleAnalytics gaId="G-4YQBDC3X3W" />
+			<GoogleAnalytics gaId="G-47L0679HQF" />
 		</html>
 	);
 }
