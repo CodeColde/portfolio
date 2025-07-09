@@ -1,8 +1,8 @@
 import type { PortableTextTypeComponentProps, PortableTextMarkComponentProps, PortableTextBlockComponent } from "next-sanity";
 import { PortableText, type PortableTextReactComponents } from "next-sanity";
 import ContentParagraph from "./ContentParagraph";
-import ContentLink from "./ContentLink";
-import ContentImage from "./ContentImage";
+import ContentLink, { type SanityLinkValue } from "./ContentLink";
+import ContentImage, { type SanityImageValue } from "./ContentImage";
 
 interface ContentProps {
   children: Array<{
@@ -21,10 +21,10 @@ interface ContentProps {
 const Content = ({ children }: ContentProps) => {
   const components: Partial<PortableTextReactComponents> = {
     types: {
-      image: (props: PortableTextTypeComponentProps<any>) => <ContentImage {...props} />,
+      image: (props: PortableTextTypeComponentProps<SanityImageValue>) => <ContentImage {...props} />,
     },
     marks: {
-      link: (props: PortableTextMarkComponentProps<any>) => <ContentLink {...props} />,
+      link: (props: PortableTextMarkComponentProps<SanityLinkValue>) => <ContentLink {...props} />,
     },
     block: {
       normal: ((props) => (

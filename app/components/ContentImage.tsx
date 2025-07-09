@@ -4,14 +4,15 @@ import Image from "next/image";
 
 import type { PortableTextTypeComponentProps } from "next-sanity";
 
-type SanityImageValue = {
+
+export interface SanityImageValue {
   asset: {
     _ref: string;
     _type: string;
   };
   alt?: string;
-  [key: string]: any;
-};
+  [key: string]: unknown;
+}
 
 const ContentImage = ({ value }: PortableTextTypeComponentProps<SanityImageValue>) => {
   const { width, height } = getImageDimensions(value);

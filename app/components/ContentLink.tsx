@@ -2,11 +2,10 @@ import Link from "next/link";
 
 import type { PortableTextMarkComponentProps } from "next-sanity";
 
-type SanityLinkValue = {
+export interface SanityLinkValue {
   href: string;
   _key: string;
   _type: string;
-  [key: string]: any;
 };
 
 const ContentLink = ({ children, value }: PortableTextMarkComponentProps<SanityLinkValue>) => {

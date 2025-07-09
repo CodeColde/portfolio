@@ -9,10 +9,9 @@ import BodySectionHeader from "@/app/components/BodySectionHeader";
 import ProjectLink from "@/app/components/ProjectLink";
 import ContentParagraph from "@/app/components/ContentParagraph";
 
+// Next.js App Router dynamic route params type
 interface PageProps {
-  params: {
-    slug: string;
-  };
+  params: Promise<{ slug: string }>;
 }
 
 const excerptFont = Orbitron({
@@ -21,7 +20,7 @@ const excerptFont = Orbitron({
 });
 
 const page = async ({ params }: PageProps) => {
-  const { slug } = params;
+  const { slug } = await params;
 
   const caseDetails = await getCaseBySlug(slug);
 
