@@ -24,15 +24,15 @@ const BackButton = () => {
 
   return (
     <div
-      className={`${buttonStyles}${isAnimating ? " top-[0%] left-[0%] h-full w-full bg-red-800 rounded-[0px]" : " top-[2%] left-[2%] hover:rounded-[75px]"}`}
+      className={`${buttonStyles}${isAnimating ? " top-[0%] left-[0%] h-full w-full bg-red-800 rounded-[0px]" : " top-[2%] left-[2%] hover:rounded-[56px]"}`}
       style={{
-        transition: "background-color 0.1s ease-in-out, border-radius 0.1s ease-in-out, top 0.2s ease-in-out, left 0.2s ease-in-out, width 0.4s ease-in-out, height 0.4s ease-in-out",
+        transition: "background-color 0.1s ease-in-out, border-radius 0.15s ease-in, top 0.2s ease-in-out, left 0.2s ease-in-out, width 0.4s ease-in-out, height 0.4s ease-in-out",
       }}
     >
       <button
         type="button"
         onClick={handleClick}
-        className="cursor-pointer h-full w-full p-[18px]"
+        className="cursor-pointer h-full w-full p-[12px]"
       >
         <Image
           src="/back.png"
@@ -51,8 +51,8 @@ export default BackButton;
 const buttonStyles= `
   z-3
   fixed
-  h-[75px]
-  w-[75px]
+  h-[56px]
+  w-[56px]
   rounded-[0px]
   cursor-pointer
   hover:bg-red-800

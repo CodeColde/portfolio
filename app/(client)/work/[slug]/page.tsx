@@ -35,17 +35,17 @@ const page = async ({ params }: PageProps) => {
           fill
           className="object-cover object-center z-1 opacity-70 absolute"
         />
-        <div className="absolute z-2 top-1/2 left-1/2 translate-x-[-50%] text-center text-white">
-          <h1 className="text-8xl font-bold italic">{caseDetails.title}</h1>
+        <div className="absolute z-2 top-1/2 left-1/2 translate-x-[-50%] text-center text-white w-[90%]">
+          <h1 className="text-8xl max-lg:text-7xl max-md:text-6xl max-sm:text-5xl max-xs:text-4xl font-bold italic">{caseDetails.title}</h1>
           {caseDetails.liveLink && (
             <ProjectLink href={caseDetails.liveLink} />
           )}
         </div>
       </section>
-      <section className="w-1/2 max-lg:w-[60%] max-md:w-3/4 max-sm:w-[95%] mx-auto mt-16">
-        <h4 className="italic uppercase mb-2">{caseDetails.client}</h4>
-        <h3 className={`${excerptFont.className} antialiased font-extrabold text-4xl`}>{caseDetails.excerpt}</h3>
-        <hr className="w-[24px] mt-16" />
+      <section className="w-1/2 max-lg:w-[60%] max-md:w-3/4 max-sm:w-[90%] mx-auto mt-16">
+        <h4 className="italic uppercase mb-2 text-md max-md:text-sm">{caseDetails.client}</h4>
+        <h3 className={`${excerptFont.className} antialiased font-extrabold text-3xl max-lg:text-3xl max-md:text-2xl`}>{caseDetails.excerpt}</h3>
+        <hr className="w-[24px] mt-14" />
         <BodySectionHeader>Purpose</BodySectionHeader>
         <ContentParagraph>{caseDetails.purpose}</ContentParagraph>
         <BodySectionHeader>Responsibilities</BodySectionHeader>
