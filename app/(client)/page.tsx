@@ -22,6 +22,7 @@ async function getHomepageData() {
       }
     }
   `;
+
 	const data: HomepageData = await client.fetch(query);
 	return data;
 }
