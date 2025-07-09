@@ -11,6 +11,9 @@ importers:
       '@next/third-parties':
         specifier: ^15.3.2
         version: 15.3.5(next@15.3.1(@babel/core@7.28.0)(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react@19.1.0)
+      '@sanity/asset-utils':
+        specifier: ^2.2.1
+        version: 2.2.1
       '@sanity/image-url':
         specifier: ^1.1.0
         version: 1.1.0
@@ -66,9 +69,6 @@ importers:
       '@eslint/eslintrc':
         specifier: ^3
         version: 3.3.1
-      '@portabletext/types':
-        specifier: ^2.0.13
-        version: 2.0.13
       '@types/node':
         specifier: ^20
         version: 20.19.4

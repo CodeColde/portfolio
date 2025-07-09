@@ -5,9 +5,9 @@ import BackButton from "@/app/components/BackButton";
 import { urlFor } from "@/sanity/lib/image";
 import { Orbitron, } from "next/font/google";
 import Content from "@/app/components/Content";
-import BodyParagraph from "@/app/components/BodyParagraph";
 import BodySectionHeader from "@/app/components/BodySectionHeader";
 import ProjectLink from "@/app/components/ProjectLink";
+import ContentParagraph from "@/app/components/ContentParagraph";
 
 interface PageProps {
   params: {
@@ -42,12 +42,12 @@ const page = async ({ params }: PageProps) => {
           )}
         </div>
       </section>
-      <section className="w-1/2 mx-auto mt-16">
+      <section className="w-1/2 max-lg:w-[60%] max-md:w-3/4 max-sm:w-[95%] mx-auto mt-16">
         <h4 className="italic uppercase mb-2">{caseDetails.client}</h4>
         <h3 className={`${excerptFont.className} antialiased font-extrabold text-4xl`}>{caseDetails.excerpt}</h3>
         <hr className="w-[24px] mt-16" />
         <BodySectionHeader>Purpose</BodySectionHeader>
-        <BodyParagraph>{caseDetails.purpose}</BodyParagraph>
+        <ContentParagraph>{caseDetails.purpose}</ContentParagraph>
         <BodySectionHeader>Responsibilities</BodySectionHeader>
         <Content>{caseDetails.responsibilities}</Content>
       </section>
