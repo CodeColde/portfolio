@@ -29,7 +29,7 @@ const page = async () => {
 			</section>
 			<section className="w-[75vw] overflow-y-auto max-md:w-screen">
 				<article className={richTextStyles}>
-					<h1 className="text-[16rem] max-xl:text-[12rem] max-lg:text-[9rem] max-md:text-[10rem] max-sm:text-[6rem] font-bold uppercase text-white leading-none">
+					<h1 className="text-[13rem] max-xl:text-[10rem] max-lg:text-[7rem] max-md:text-[10rem] max-sm:text-[6rem] font-bold uppercase text-white leading-none">
 						Let&apos;s build!
 					</h1>
 					<div>
@@ -67,9 +67,9 @@ const richTextStyles = `
 	pb-[5vh]
   opacity-0
   animate-load-in
-  prose-p:text-3xl
-  prose-p:max-lg:text-2xl
-  prose-p:max-sm:text-xl
+  prose-p:text-2xl
+  prose-p:max-lg:text-xl
+	prose-p:max-xs:text-lg
   prose-p:font-bold
   prose-p:text-white
   prose-p:w-[90%]
