@@ -4,7 +4,13 @@
 **/
 import { defineCliConfig } from 'sanity/cli'
 
-const projectId = process.env.NEXT_PUBLIC_SANITY_PROJECT_ID
-const dataset = process.env.NEXT_PUBLIC_SANITY_DATASET
+const projectId = process.env.NEXT_PUBLIC_SANITY_PROJECT_ID;
+const dataset = process.env.NEXT_PUBLIC_SANITY_DATASET;
+const studioHost = process.env.NEXT_PUBLIC_SANITY_STUDIO_HOST;
 
-export default defineCliConfig({ api: { projectId, dataset } })
+console.log("projectId:", projectId, "dataset:", dataset);
+if (!projectId || !dataset) {
+  throw new Error("Sanity projectId or dataset is not set in environment variables.");
+}
+
+export default defineCliConfig({ api: { projectId, dataset }, studioHost });
