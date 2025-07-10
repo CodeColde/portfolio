@@ -1,0 +1,33 @@
+{
+  "[javascript]": {
+    "editor.defaultFormatter": "biomejs.biome"
+  },
+  "editor.codeActionsOnSave": {
+    "quickfix.biome": "explicit",
+    "source.organizeImports.biome": "explicit"
+  },
+  "files.associations": {
+    "*.css": "tailwindcss"
+  },
+  "workbench.colorCustomizations": {
+    "activityBar.background": "#0f3591",
+    "activityBar.activeBorder": "#e71854",
+    "activityBar.foreground": "#e7e7e7",
+    "activityBar.inactiveForeground": "#e7e7e799",
+    "activityBarBadge.background": "#e71854",
+    "activityBarBadge.foreground": "#e7e7e7",
+    "titleBar.activeBackground": "#0a2463",
+    "titleBar.inactiveBackground": "#0a246399",
+    "titleBar.activeForeground": "#e7e7e7",
+    "titleBar.inactiveForeground": "#e7e7e799",
+    "statusBar.background": "#0a2463",
+    "statusBarItem.hoverBackground": "#0f3591",
+    "statusBar.foreground": "#e7e7e7",
+    "activityBar.activeBackground": "#0f3591",
+    "commandCenter.border": "#e7e7e799",
+    "sash.hoverBorder": "#0f3591",
+    "statusBarItem.remoteBackground": "#0a2463",
+    "statusBarItem.remoteForeground": "#e7e7e7"
+  },
+  "peacock.color": "#0a2463"
+}
