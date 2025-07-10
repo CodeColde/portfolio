@@ -85,9 +85,9 @@ const richTextStyles = `
 `;
 
 const welcomeTextStyles = `
-  text-[16rem]
-  max-xl:text-[12rem]
-  max-lg:text-[9rem]
+  text-[13rem]
+  max-xl:text-[10rem]
+  max-lg:text-[7rem]
   max-md:text-[10rem]
   max-sm:text-[6rem]
   font-bold
