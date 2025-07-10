@@ -151,6 +151,7 @@ export const socialItemStyle = `
   max-sm:h-[24px]
   max-sm:w-[24px]
   mx-2
+  max-sm:mx-1
   [&:first-child]:p-0 p-right-[10px]
   hover:[&>a]:opacity-100
 `;

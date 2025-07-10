@@ -29,12 +29,10 @@ const page = async () => {
 			</section>
 			<section className="w-[75vw] overflow-y-auto max-md:w-screen">
 				<article className={richTextStyles}>
-					<h1 className="text-[13rem] max-xl:text-[10rem] max-lg:text-[7rem] max-md:text-[10rem] max-sm:text-[6rem] font-bold uppercase text-white leading-none">
+					<h1 className="text-[12rem] max-xl:text-[10rem] max-lg:text-[7rem] max-md:text-[10rem] max-sm:text-[6rem] font-bold uppercase text-white leading-none mb-16">
 						Let&apos;s build!
 					</h1>
-					<div>
-						<PortableText value={openingText} />
-					</div>
+					<PortableText value={openingText} />
 				</article>
 				<article className="px-[8vw] pt-[8vh] pb-[5vh] w-full bg-green-900">
 					<Subheader>Experience</Subheader>
@@ -57,24 +55,24 @@ export default page;
 
 const richTextStyles = `
   relative
-	flex
-	flex-col
-	justify-between
-  h-[92vh]
+  flex
+  flex-col
+  justify-between
   z-2
   px-[8vw]
-	pt-[15vh]
-	pb-[5vh]
+  pt-[15vh]
+  pb-[5vh]
   opacity-0
   animate-load-in
   prose-p:text-2xl
   prose-p:max-lg:text-xl
-	prose-p:max-xs:text-lg
+  prose-p:max-md:text-lg
+  prose-p:max-xs:text-md
   prose-p:font-bold
   prose-p:text-white
   prose-p:w-[90%]
-	prose-p:max-md:w-full
-	prose-p:mb-8
+  prose-p:max-md:w-full
+  prose-p:mb-8
   prose-strong:text-green-400
   prose-strong:font-bold
 `;
