@@ -8,6 +8,8 @@
     "start": "next start",
     "lint": "next lint",
     "typecheck": "tsc --noEmit",
+    "sanity:deploy": "dotenv -e .env sanity deploy",
+    "sanity:start": "dotenv -e .env sanity start",
     "biome": "biome check --write --changed --no-errors-on-unmatched",
     "biome-ci": "biome ci --diagnostic-level=error --reporter=github --changed --no-errors-on-unmatched"
   },
