@@ -8,11 +8,13 @@
     "start": "next start",
     "lint": "next lint",
     "typecheck": "tsc --noEmit",
+    "sanity:deploy": "dotenv -e .env sanity deploy",
+    "sanity:start": "dotenv -e .env sanity start",
     "biome": "biome check --write --changed --no-errors-on-unmatched",
     "biome-ci": "biome ci --diagnostic-level=error --reporter=github --changed --no-errors-on-unmatched"
   },
   "dependencies": {
-    "@next/third-parties": "^15.3.2",
+    "@next/third-parties": "^15.3.5",
     "@sanity/asset-utils": "^2.2.1",
     "@sanity/image-url": "^1.1.0",
     "@sanity/vision": "^3.87.0",
@@ -21,14 +23,13 @@
     "framer-motion": "^12.12.1",
     "gsap": "^3.13.0",
     "lefthook": "^1.11.13",
-    "next": "15.3.1",
-    "next-sanity": "^9.11.0",
+    "next": "15.3.5",
+    "next-sanity": "^9.12.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-slick": "^0.30.3",
     "sanity": "^3.98.1",
     "slick-carousel": "^1.8.1",
-    "styled-components": "^6.1.17",
     "tailwindcss": "^4.1.11"
   },
   "devDependencies": {
