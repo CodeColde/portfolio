@@ -6,7 +6,8 @@ const caseSummaryQuery = `*[_type == "cases"] | order(year desc) {
     client,
     title,
     slug,
-    coverImage
+    coverImage,
+    coverImageMobile
   }
 `;
 

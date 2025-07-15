@@ -47,6 +47,13 @@ export interface CaseIntroEntry {
       _type: string;
     };
   };
+  coverImageMobile: {
+    _type: string;
+    asset: {
+      _ref: string;
+      _type: string;
+    };
+  }
   slug: {
     _type: string;
     current: string;

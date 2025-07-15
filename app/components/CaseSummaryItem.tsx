@@ -43,18 +43,31 @@ const CaseSummaryItem = ({ caseDetails, idx }: Props) => {
   }, []);
 
   return (
-    <section className={`relative ${idx === 0 ? "h-[90vh]" : "h-[800px]"} w-full overflow-hidden bg-gray-500`}>
+    <section className={`relative ${idx === 0 ? "h-[90vh]" : "h-[800px] max-sm:h-screen"} w-full overflow-hidden bg-gray-500`}>
       <div
         ref={bgRef}
-        className={`absolute top-0 left-0 will-change-transform bg-cover bg-center bg-grey-800 opacity-90 w-full ${
+        className={`absolute top-0 left-0 will-change-transform bg-cover bg-center bg-grey-800 opacity-90 w-full max-sm:hidden ${
           idx === 0
-          ? "h-[150%] max-md:h-[140%] max-sm:h-[139%]"
-          : "h-[160%] max-md:h-[150%] max:sm:h-[142%]"
+          ? "h-[150%] max-md:h-[140%]"
+          : "h-[160%] max-md:h-[150%]"
         }`}
         style={{
           objectFit: "cover",
           objectPosition: "center",
           backgroundImage: `url(${urlFor(caseDetails.coverImage).url()})`,
+        }}
+      />
+      <div
+        ref={bgRef}
+        className={`absolute top-0 left-0 will-change-transform bg-cover bg-center bg-grey-800 opacity-90 w-full min-sm:hidden ${
+          idx === 0
+          ? "h-[139%]"
+          : "h-[142%]"
+        }`}
+        style={{
+          objectFit: "cover",
+          objectPosition: "center",
+          backgroundImage: `url(${urlFor(caseDetails.coverImageMobile).url()})`,
         }}
       />
 
