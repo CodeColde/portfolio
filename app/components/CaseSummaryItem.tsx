@@ -71,6 +71,12 @@ const CaseSummaryItem = ({ caseDetails, idx }: Props) => {
           <p className="uppercase text-xl max-sm:text-sm italic">{caseDetails.client}</p>
         </Link>
       </div>
+      <div className="min-sm:hidden flex relative flex-col justify-center items-center h-full text-white px-6 text-center">
+        <h2 className="text-8xl max-md:text-6xl max-sm:text-5xl max-xs:text-4xl font-bold italic mb-6">
+          {caseDetails.title}
+        </h2>
+        <CaseLink href={`/work/${caseDetails.slug.current}`} />
+    </div>
       {idx === 0 && <ScrollIndicator />}
     </section>
   )
