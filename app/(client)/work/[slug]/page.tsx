@@ -23,6 +23,7 @@ const page = async ({ params }: PageProps) => {
   const { slug } = await params;
 
   const caseDetails = await getCaseBySlug(slug);
+  console.log(caseDetails);
 
   return (
     <main className="relative h-auto w-full pb-28 opacity-100">

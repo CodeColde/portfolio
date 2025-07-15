@@ -15,8 +15,8 @@ const page = async () => {
 	const extrasData = aboutData.fourth;
 
 	return (
-		<main className="flex w-screen h-screen bg-green-800 flex-row">
-			<section className="sticky top-0 left-0 height-full w-[25vw] opacity-75 max-md:hidden">
+		<main className="flex bg-blue-800 flex-row">
+			<section className="sticky top-0 left-0 h-screen w-[25vw] opacity-75 max-md:hidden">
 				<Image
 					src={urlFor(coverImage).width(1200).height(1600).dpr(2).url()}
 					alt={altText}
@@ -34,13 +34,13 @@ const page = async () => {
 					</h1>
 					<PortableText value={openingText} />
 				</article>
-				<article className="px-[8vw] pt-[8vh] pb-[5vh] w-full bg-green-900">
+				<article className="px-[8vw] pt-[8vh] pb-[5vh] w-full bg-blue-900">
 					<Subheader>Experience</Subheader>
 					{experienceData.map((exp) => (
 						<Experience key={exp.startDate} experience={exp} />
 					))}
 				</article>
-				<article className="px-[8vw] pt-[8vh] pb-[5vh] w-full bg-green-900">
+				<article className="px-[8vw] pt-[8vh] pb-[5vh] w-full bg-blue-900">
 					<Subheader>Extras</Subheader>
 					{extrasData.map((entry) => (
 						<Experience key={entry.year} extra={entry} />
@@ -73,6 +73,6 @@ const richTextStyles = `
   prose-p:w-[90%]
   prose-p:max-md:w-full
   prose-p:mb-8
-  prose-strong:text-green-400
+  prose-strong:text-blue-400
   prose-strong:font-bold
 `;
