@@ -5,6 +5,7 @@ import Link from "next/link";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useLayoutEffect, useRef } from "react";
+import ScrollIndicator from "./ScrollIndicator";
 import CaseLink from "./CaseLink";
 
 gsap.registerPlugin(ScrollTrigger);
@@ -70,6 +71,7 @@ const CaseSummaryItem = ({ caseDetails, idx }: Props) => {
           <p className="uppercase text-xl max-sm:text-sm italic">{caseDetails.client}</p>
         </Link>
       </div>
+      {idx === 0 && <ScrollIndicator />}
     </section>
   )
 }
