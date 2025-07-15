@@ -30,4 +30,22 @@ export interface CaseEntry {
   year: number;
 }
 
+export interface CaseIntroEntry {
+  _id: string;
+  client: string;
+  coverImage: {
+    _type: string;
+    asset: {
+      _ref: string;
+      _type: string;
+    };
+  };
+  slug: {
+    _type: string;
+    current: string;
+  };
+  title: string;
+}
+
 export type CasesResponse = CaseEntry[];
+export type CaseSummaryResponse = CaseIntroEntry[];
