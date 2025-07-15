@@ -7,6 +7,7 @@ export async function getCaseBySlug(slug: string) {
   _id,
   client,
   coverImage,
+  coverImageMobile,
   excerpt,
   liveLink,
   purpose,

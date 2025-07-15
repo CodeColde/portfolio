@@ -33,7 +33,13 @@ const page = async ({ params }: PageProps) => {
           src={urlFor(caseDetails.coverImage).width(1920).height(1200).url()}
           alt={caseDetails.title}
           fill
-          className="object-cover object-center z-1 opacity-70 absolute"
+          className="object-cover object-center z-1 opacity-70 absolute max-sm:hidden"
+        />
+        <Image
+          src={urlFor(caseDetails.coverImageMobile).width(1920).height(1200).url()}
+          alt={caseDetails.title}
+          fill
+          className="object-cover object-center z-1 opacity-70 absolute min-sm:hidden"
         />
         <div className="absolute z-2 top-1/2 left-1/2 translate-x-[-50%] text-center text-white w-[90%]">
           <h1 className="text-8xl max-lg:text-7xl max-md:text-6xl max-sm:text-5xl max-xs:text-4xl font-bold italic">{caseDetails.title}</h1>

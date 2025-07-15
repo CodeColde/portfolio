@@ -44,6 +44,14 @@ export const cases = {
       validation: (Rule: Rule) => Rule.required().error("Cover image is required"),
     },
     {
+      name: "coverImageMobile",
+      title: "Cover Image - Mobile",
+      type: "image",
+      options: {
+        hotspot: true,
+      },
+    },
+    {
       name: "liveLink",
       title: "Live Link",
       type: "url",

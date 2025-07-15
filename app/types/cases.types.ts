@@ -8,6 +8,13 @@ export interface CaseEntry {
       _type: string;
     };
   };
+  coverImageMobile: {
+    _type: string;
+    asset: {
+      _ref: string;
+      _type: string;
+    };
+  };
   excerpt: string;
   liveLink: string;
   purpose: string;
