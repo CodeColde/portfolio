@@ -3,6 +3,7 @@ import { Chakra_Petch } from "next/font/google";
 import "./globals.css";
 import NavMenu from "../components/NavMenu";
 import { GoogleAnalytics, } from "@next/third-parties/google";
+import SmoothScrollProvider from "../components/SmoothScrollProvider";
 
 const mainFont = Chakra_Petch({
 	variable: "--font-chakra-petch",
@@ -24,8 +25,10 @@ export default function RootLayout({
 	return (
 		<html lang="en">
 			<body className={`${mainFont.className} antialiased`}>
-				<NavMenu />
-				{children}
+				<SmoothScrollProvider>
+					<NavMenu />
+					{children}
+				</SmoothScrollProvider>
 			</body>
 			<GoogleAnalytics gaId="G-47L0679HQF" />
 		</html>
