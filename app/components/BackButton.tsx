@@ -8,7 +8,7 @@ const BackButton = () => {
   const [isAnimating, setIsAnimating] = useState(false);
   const pathname = usePathname();
   const isWorkSection = pathname.startsWith("/work");
-  const handleBack = useSmartBack(isWorkSection ? "/work/" : "/blog/");
+  const handleBack = useSmartBack(isWorkSection ? "/" : "/blog/");
 
   const handleClick = () => {
     if (isAnimating) {
