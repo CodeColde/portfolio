@@ -31,6 +31,7 @@ const ScrollIndicator = () => {
 
   return (
     <div
+      id="scroll-indicator"
       className="absolute bottom-[4%] left-1/2 -translate-x-1/2 flex items-center flex-col transition-opacity duration-300 ease-in-out"
       style={{ opacity: mounted ? opacity : 0 }}
     >
