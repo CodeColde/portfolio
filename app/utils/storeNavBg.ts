@@ -1,9 +1,18 @@
 export const stgname = "navbg";
 
+const hasStorage = () =>
+	typeof window !== "undefined" &&
+	typeof window.sessionStorage?.getItem === "function";
+
 const storeNavBg = (state: boolean) => {
-	return state
-		? sessionStorage.setItem("navbg", "true")
-		: sessionStorage.removeItem("navbg");
+	if (!hasStorage()) {
+		return;
+	}
+	if (state) {
+		window.sessionStorage.setItem("navbg", "true");
+	} else {
+		window.sessionStorage.removeItem("navbg");
+	}
 };
 
 export default storeNavBg;
