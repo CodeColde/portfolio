@@ -1,5 +1,6 @@
 export interface ExperienceEntryType {
   company: string;
+  companyUrl?: string | null;
   details: string;
   role: string;
   startDate: string;
