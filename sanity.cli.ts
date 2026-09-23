@@ -1,14 +1,9 @@
-/**
-* This configuration file lets you run `$ sanity [command]` in this folder
-* Go to https://www.sanity.io/docs/cli to learn more.
-**/
-import { defineCliConfig } from 'sanity/cli'
+import { defineCliConfig } from "sanity/cli";
 
 const projectId = process.env.SANITY_STUDIO_SANITY_PROJECT_ID;
 const dataset = process.env.SANITY_STUDIO_SANITY_DATASET;
 const studioHost = process.env.SANITY_STUDIO_HOST;
 
-console.log("projectId:", projectId, "dataset:", dataset);
 if (!projectId || !dataset) {
   throw new Error("Sanity projectId or dataset is not set in environment variables.");
 }

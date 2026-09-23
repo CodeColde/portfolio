@@ -8,20 +8,28 @@ export interface CaseEntry {
       _type: string;
     };
   };
+  coverImageMobile: {
+    _type: string;
+    asset: {
+      _ref: string;
+      _type: string;
+    };
+  };
+  coverVideo?: string | null;
   excerpt: string;
   liveLink: string;
   purpose: string;
   responsibilities: Array<{
-		_key: string;
-		_type: string;
-		children: Array<{
-			_key: string;
-			_type: string;
-			text: string;
-		}>;
-		markDefs: [];
-		style: string;
-	}>;
+    _key: string;
+    _type: string;
+    children: Array<{
+      _key: string;
+      _type: string;
+      text: string;
+    }>;
+    markDefs: [];
+    style: string;
+  }>;
   slug: {
     _type: string;
     current: string;
@@ -30,4 +38,30 @@ export interface CaseEntry {
   year: number;
 }
 
+export interface CaseIntroEntry {
+  _id: string;
+  client: string;
+  coverImage: {
+    _type: string;
+    asset: {
+      _ref: string;
+      _type: string;
+    };
+  };
+  coverImageMobile: {
+    _type: string;
+    asset: {
+      _ref: string;
+      _type: string;
+    };
+  };
+  coverVideo?: string | null;
+  slug: {
+    _type: string;
+    current: string;
+  };
+  title: string;
+}
+
 export type CasesResponse = CaseEntry[];
+export type CaseSummaryResponse = CaseIntroEntry[];

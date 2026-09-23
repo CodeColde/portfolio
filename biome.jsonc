@@ -1,5 +1,5 @@
 {
-  "$schema": "https://biomejs.dev/schemas/1.9.4/schema.json",
+  "$schema": "https://biomejs.dev/schemas/2.5.14/schema.json",
   "vcs": {
     "enabled": false,
     "clientKind": "git",
@@ -10,108 +10,78 @@
     "enabled": true,
     "useEditorconfig": true,
     "indentStyle": "space",
-    "ignore": ["src/enums/*", "src/data/balance/*"],
+    "includes": ["**"],
     "lineWidth": 120
   },
   "files": {
     "ignoreUnknown": true,
-    // Adding folders to the ignore list is GREAT for performance because it prevents biome from descending into them
-    // and having to verify whether each individual file is ignored
-    "ignore": [
-      "**/*.d.ts",
-      "dist/*",
-      "build/*",
-      "coverage/*",
-      "public/*",
-      ".github/*",
-      "node_modules/*",
-      ".vscode/*",
-      "*.css", // TODO?
-      "*.html", // TODO?
-      "src/overrides.ts",
-      // TODO: these files are too big and complex, ignore them until their respective refactors
-      "src/data/moves/move.ts",
-      "src/data/abilities/ability.ts",
-      "src/field/pokemon.ts",
-
-      // this file is just too big:
-      "src/data/balance/tms.ts"
+    "includes": [
+      "**",
+      "!**/*.d.ts",
+      "!**/.next/**/*",
+      "!**/dist/**/*",
+      "!**/build/**/*",
+      "!**/coverage/**/*",
+      "!**/public/**/*",
+      "!**/.github/**/*",
+      "!**/node_modules/**/*",
+      "!**/.vscode/**/*",
+      "!**/*.css",
+      "!**/*.html"
     ]
   },
-
-  // While it'd be nice to enable consistent sorting, enabling this causes issues due to circular import resolution order
-  // TODO: Remove if we ever get down to 0 circular imports
-  "organizeImports": { "enabled": false },
+  "assist": { "actions": { "source": { "organizeImports": "off" } } },
   "linter": {
-    "ignore": [
-      "src/phases/move-effect-phase.ts" // TODO: unignore after move-effect-phase refactor
-    ],
+    "includes": ["**"],
     "enabled": true,
     "rules": {
-      "recommended": true,
+      "preset": "recommended",
       "correctness": {
         "noUndeclaredVariables": "off",
         "noUnusedVariables": "error",
-        "noSwitchDeclarations": "warn", // TODO: refactor and make this an error
-        "noVoidTypeReturn": "warn", // TODO: Refactor and make this an error
+        "noSwitchDeclarations": "warn",
+        "noVoidTypeReturn": "warn",
         "noUnusedImports": "error"
       },
       "style": {
-        "noVar": "error",
-        "useEnumInitializers": "off", // large enums like Moves/Species would make this cumbersome 
+        "useEnumInitializers": "off",
         "useBlockStatements": "error",
         "useConst": "error",
         "useImportType": "error",
-        "noNonNullAssertion": "off", // TODO: Turn this on ASAP and fix all non-null assertions in non-test files
+        "noNonNullAssertion": "off",
         "noParameterAssign": "off",
-        "useExponentiationOperator": "off", // Too typo-prone and easy to mixup with standard multiplication (* vs **)
-        "useDefaultParameterLast": "off", // TODO: Fix spots in the codebase where this flag would be triggered, and then enable
+        "useExponentiationOperator": "off",
+        "useDefaultParameterLast": "off",
         "useSingleVarDeclarator": "off",
         "useNodejsImportProtocol": "off",
-        "useTemplate": "off", // string concatenation is faster: https://stackoverflow.com/questions/29055518/are-es6-template-literals-faster-than-string-concatenation
-        "noNamespaceImport": "error"
+        "useTemplate": "off"
       },
       "suspicious": {
         "noDoubleEquals": "error",
-        // While this would be a nice rule to enable, the current structure of the codebase makes this infeasible 
-        // due to being used for move/ability `args` params and save data-related code.
-        // This can likely be enabled for all non-utils files once these are eventually reworked, but until then we leave it off.  
         "noExplicitAny": "off",
         "noAssignInExpressions": "off",
         "noPrototypeBuiltins": "off",
-        "noFallthroughSwitchClause": "error", // Prevents accidental automatic fallthroughs in switch cases (use disable comment if needed)
-        "noImplicitAnyLet": "warn", // TODO: Refactor and make this an error
-        "noRedeclare": "info", // TODO: Refactor and make this an error
+        "noFallthroughSwitchClause": "error",
+        "noImplicitAnyLet": "warn",
+        "noRedeclare": "info",
         "noGlobalIsNan": "off",
-        "noAsyncPromiseExecutor": "warn" // TODO: Refactor and make this an error
+        "noAsyncPromiseExecutor": "warn",
+        "noVar": "error"
       },
       "complexity": {
-        "noExcessiveCognitiveComplexity": "warn", // TODO: Refactor and make this an error
+        "noExcessiveCognitiveComplexity": "warn",
         "useLiteralKeys": "off",
-        "noForEach": "off", // Foreach vs for of is not that simple.
-        "noUselessSwitchCase": "off", // Explicit > Implicit
-        "noUselessConstructor": "warn", // TODO: Refactor and make this an error
-        "noBannedTypes": "warn" // TODO: Refactor and make this an error
+        "noForEach": "off",
+        "noUselessSwitchCase": "off",
+        "noUselessConstructor": "warn",
+        "noBannedTypes": "warn"
+      },
+      "performance": {
+        "noNamespaceImport": "error"
       }
     }
   },
   "javascript": {
     "formatter": { "quoteStyle": "double", "arrowParentheses": "asNeeded" }
-  },
-  "overrides": [
-    {
-      "include": ["test/**/*.test.ts"],
-      "javascript": { "globals": [] },
-      "linter": {
-        "rules": {
-          "performance": {
-            "noDelete": "off" // TODO: evaluate if this is necessary for the test(s) to function
-          },
-          "style": {
-            "noNamespaceImport": "off" // this is required for `vi.spyOn` to work in some tests
-          }
-        }
-      }
-    }
-  ]
+  }
 }
