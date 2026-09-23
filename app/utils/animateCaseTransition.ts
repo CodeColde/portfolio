@@ -1,74 +1,113 @@
-import type { useRouter } from "next/navigation";
-import gsap from "gsap";
+import { animate, type MotionValue } from "motion";
 import type Lenis from "lenis";
+import type { useRouter } from "next/navigation";
+import { coverVideoStage } from "./coverVideoStage";
 
 interface AnimateOptions {
   caseItemId: string;
   slug: string;
   router: ReturnType<typeof useRouter>;
-  lenis: Lenis | null;
+  lenis: Lenis | undefined;
+  settleParallax?: MotionValue<number>;
+  onSettle?: () => void;
   onComplete: () => void;
 }
 
-function animateCaseTransition({ caseItemId, slug, router, lenis, onComplete }: AnimateOptions) {
-  const caseEl = document.getElementById(caseItemId);
-  const body = document.body;
+const HERO_HEIGHT = "45vh";
+const HERO_MEDIA_OPACITY = 0.7;
+const SHRINK_DURATION_S = 0.6;
 
+const EASE: [number, number, number, number] = [0.45, 0, 0.55, 1];
+const easeInOut = (t: number) => (t < 0.5 ? 2 * t * t : 1 - (-2 * t + 2) ** 2 / 2);
+
+const wait = (ms: number) => new Promise<void>(resolve => setTimeout(resolve, ms));
+
+const scrollWindowTo = (top: number, lenis: Lenis | undefined, duration: number) => {
+  if (lenis) {
+    return new Promise<void>(resolve => {
+      lenis.scrollTo(top, { duration, easing: easeInOut, force: true, lock: true, onComplete: () => resolve() });
+    });
+  }
+  return animate(window.scrollY, top, {
+    duration,
+    ease: EASE,
+    onUpdate: value => window.scrollTo(0, value),
+  }).finished.then(() => undefined);
+};
+
+async function animateCaseTransition({
+  caseItemId,
+  slug,
+  router,
+  lenis,
+  settleParallax,
+  onSettle,
+  onComplete,
+}: AnimateOptions) {
+  const caseEl = document.getElementById(caseItemId);
   if (!caseEl) {
     return;
   }
-  lenis?.stop();
-  body.style.overflow = "hidden";
 
-  const scrollTop = window.scrollY;
-  const rect = caseEl.getBoundingClientRect();
-  const absoluteTop = scrollTop + rect.top;
-  const siblings = Array.from(document.querySelectorAll("main > section")).filter(
-    (el) => el.id !== caseItemId
+  const href = `/${slug}`;
+
+  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    router.push(href);
+    onComplete();
+    return;
+  }
+
+  const siblings = Array.from(document.querySelectorAll<HTMLElement>("main > section")).filter(
+    el => el.id !== caseItemId,
   );
+  const absoluteTop = window.scrollY + caseEl.getBoundingClientRect().top;
 
-  // 🔥 Step 1 & 2: Scroll + expand section simultaneously
-  const timeline = gsap.timeline({
-    defaults: { ease: "power2.inOut" },
-  });
+  lenis?.stop();
 
-  timeline.to(window, {
-    scrollTo: { y: absoluteTop },
-    duration: 0.4,
-  }, 0); // start at time 0
+  await Promise.all([
+    scrollWindowTo(absoluteTop, lenis, 0.4),
+    animate(caseEl, { height: "100vh" }, { duration: 0.3, ease: EASE }).finished,
+    animate(siblings, { opacity: 0 }, { duration: 0.4, ease: EASE }).finished,
+  ]);
+  await wait(500);
 
-  timeline.to(caseEl, {
-    height: "100vh",
-    duration: 0.3
-  }, "<"); // also start at time 0
+  for (const el of siblings) {
+    el.style.display = "none";
+  }
+  window.scrollTo(0, 0);
 
-  timeline.to(siblings, {
-    opacity: 0,
-    duration: 0.4,
-  }, "<");
+  const layer = caseEl.querySelector<HTMLElement>("[data-cover-layer]");
+  const layerStartPct = layer ? (layer.offsetHeight / caseEl.offsetHeight) * 100 : 100;
+  const layerStartOpacity = layer ? Number.parseFloat(getComputedStyle(layer).opacity) : HERO_MEDIA_OPACITY;
+  const shrink = { duration: SHRINK_DURATION_S, ease: EASE };
 
-  timeline.to({}, { duration: 0.5 });
+  onSettle?.();
+  await Promise.all([
+    animate(caseEl, { height: HERO_HEIGHT }, shrink).finished,
+    animate(0, 1, {
+      ...shrink,
+      onUpdate: progress => {
+        caseEl.style.backgroundColor = `color-mix(in oklab, black ${progress * 100}%, var(--color-gray-500))`;
+        if (!layer) {
+          return;
+        }
+        layer.style.height = `${layerStartPct + (100 - layerStartPct) * progress}%`;
+        layer.style.opacity = String(layerStartOpacity + (HERO_MEDIA_OPACITY - layerStartOpacity) * progress);
+      },
+    }).finished,
+    settleParallax ? animate(settleParallax, 1, shrink).finished : Promise.resolve(),
+  ]);
 
-  timeline.call(() => {
-    const siblings = Array.from(document.querySelectorAll("main > section")).filter(
-      (el) => el.id !== caseItemId
-    );
-    siblings.forEach((el) => el.remove());
-  });
+  lenis?.start();
+  lenis?.scrollTo(0, { immediate: true, force: true });
 
-  timeline.to(caseEl, {
-    height: "45vh",
-    duration: 0.6,
-    onComplete: () => {
-      body.style.overflow = "";
-      lenis?.start();
-      lenis?.scrollTo(window.scrollY, { immediate: true });
-      setTimeout(() => {
-        router.push(`/work/${slug}`);
-      }, 600);
-      onComplete();
-    }
-  });
+  const video = caseEl.querySelector("video");
+  if (video) {
+    coverVideoStage.adopt(video, HERO_MEDIA_OPACITY);
+  }
+
+  router.push(href);
+  onComplete();
 }
 
 export default animateCaseTransition;

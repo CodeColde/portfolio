@@ -1,4 +1,3 @@
-
 import type { Rule } from "sanity";
 
 export const cases = {
@@ -52,6 +51,16 @@ export const cases = {
       },
     },
     {
+      name: "coverVideo",
+      title: "Cover Video",
+      description:
+        "Optional MP4 (H.264) shown in place of the cover image on the homepage. Use this instead of an animated GIF cover.",
+      type: "file",
+      options: {
+        accept: "video/mp4",
+      },
+    },
+    {
       name: "liveLink",
       title: "Live Link",
       type: "url",
@@ -67,7 +76,7 @@ export const cases = {
       name: "purpose",
       title: "Purpose",
       type: "text",
-      validation: (Rule: Rule) => Rule.max(700).warning("Purpose should be less than 700 characters")
+      validation: (Rule: Rule) => Rule.max(700).warning("Purpose should be less than 700 characters"),
     },
     {
       name: "responsibilities",
@@ -81,9 +90,9 @@ export const cases = {
             {
               name: "alt",
               type: "string",
-              title: "Alt text"
-            }
-          ]
+              title: "Alt text",
+            },
+          ],
         },
       ],
     },
@@ -91,9 +100,7 @@ export const cases = {
       name: "awards",
       title: "Awards and Accolades",
       type: "array",
-      of: [
-        { type: "block" },
-      ]
+      of: [{ type: "block" }],
     },
     {
       name: "publishedAt",
@@ -101,5 +108,5 @@ export const cases = {
       type: "datetime",
       initialValue: () => new Date().toISOString(),
     },
-  ]
-}
+  ],
+};

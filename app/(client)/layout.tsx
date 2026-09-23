@@ -4,33 +4,37 @@ import "./globals.css";
 import NavMenu from "../components/NavMenu";
 import { GoogleAnalytics } from "@next/third-parties/google";
 import { LenisProvider } from "../contexts/LenisContext";
+import { PageTransitionProvider } from "../contexts/PageTransitionContext";
+import CoverVideoStage from "../components/CoverVideoStage";
 
 const mainFont = Chakra_Petch({
-	variable: "--font-chakra-petch",
-	weight: ["300", "400", "500", "600", "700"],
-	subsets: ["latin"],
+  variable: "--font-chakra-petch",
+  weight: ["300", "400", "500", "600", "700"],
+  subsets: ["latin"],
 });
 
 export const metadata: Metadata = {
-	title: "Hayo Friese",
-	description:
-		"Hayo Friese's portfolio. Software engineer, product manager, and UX designer.",
+  title: "Hayo Friese",
+  description: "Hayo Friese's portfolio. Software engineer, product manager, and UX designer.",
 };
 
 export default function RootLayout({
-	children,
+  children,
 }: Readonly<{
-	children: React.ReactNode;
+  children: React.ReactNode;
 }>) {
-	return (
-		<html lang="en">
-			<body className={`${mainFont.className} antialiased`}>
-				<LenisProvider>
-					<NavMenu />
-					{children}
-				</LenisProvider>
-			</body>
-			<GoogleAnalytics gaId="G-47L0679HQF" />
-		</html>
-	);
+  return (
+    <html lang="en">
+      <body className={`${mainFont.className} antialiased`}>
+        <LenisProvider>
+          <PageTransitionProvider>
+            <NavMenu />
+            {children}
+            <CoverVideoStage />
+          </PageTransitionProvider>
+        </LenisProvider>
+      </body>
+      <GoogleAnalytics gaId="G-47L0679HQF" />
+    </html>
+  );
 }

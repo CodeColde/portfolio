@@ -15,20 +15,21 @@ export interface CaseEntry {
       _type: string;
     };
   };
+  coverVideo?: string | null;
   excerpt: string;
   liveLink: string;
   purpose: string;
   responsibilities: Array<{
-		_key: string;
-		_type: string;
-		children: Array<{
-			_key: string;
-			_type: string;
-			text: string;
-		}>;
-		markDefs: [];
-		style: string;
-	}>;
+    _key: string;
+    _type: string;
+    children: Array<{
+      _key: string;
+      _type: string;
+      text: string;
+    }>;
+    markDefs: [];
+    style: string;
+  }>;
   slug: {
     _type: string;
     current: string;
@@ -53,7 +54,8 @@ export interface CaseIntroEntry {
       _ref: string;
       _type: string;
     };
-  }
+  };
+  coverVideo?: string | null;
   slug: {
     _type: string;
     current: string;

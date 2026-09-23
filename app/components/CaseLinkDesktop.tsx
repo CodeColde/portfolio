@@ -1,24 +1,22 @@
-import Link from "next/link"
+import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useRef, useState } from "react";
-import gsap from "gsap";
-import { ScrollToPlugin } from "gsap/ScrollToPlugin";
+import { useState } from "react";
+import type { MotionValue } from "motion/react";
 import animateCaseTransition from "../utils/animateCaseTransition";
 import { useLenis } from "../contexts/LenisContext";
 import formatId from "../utils/formatId";
 
-gsap.registerPlugin(ScrollToPlugin);
-
 interface Props {
   slug: string;
   label: string;
+  settleParallax: MotionValue<number>;
 }
 
-const CaseLinkDesktop = ({ slug, label }: Props) => {
+const CaseLinkDesktop = ({ slug, label, settleParallax }: Props) => {
   const router = useRouter();
-  const { lenis } = useLenis();
-  const barRef = useRef<HTMLSpanElement>(null);
+  const lenis = useLenis();
   const [isAnimating, setIsAnimating] = useState(false);
+  const [isSettling, setIsSettling] = useState(false);
   const caseItemId = formatId(label);
 
   const handleClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
@@ -33,25 +31,32 @@ const CaseLinkDesktop = ({ slug, label }: Props) => {
       slug,
       router,
       lenis,
-      onComplete: () => setIsAnimating(false),
+      settleParallax,
+      onSettle: () => setIsSettling(true),
+      onComplete: () => {
+        setIsAnimating(false);
+        setIsSettling(false);
+      },
     });
-  }
+  };
 
   return (
     <Link
-      href={`/work/${slug}`}
+      href={`/${slug}`}
       prefetch
       onClick={handleClick}
       aria-label={`Go to project: ${label}`}
       className={`${linkClasses} ${isAnimating ? "" : staticLinkClasses}`}
     >
-      <h2 className={`${labelClasses} ${isAnimating ? "-skew-x-20 text-white" : ""}`}>
+      <h2
+        className={`${labelClasses} ${isAnimating && !isSettling ? "-skew-x-20" : ""} ${isAnimating ? "text-white" : ""}`}
+      >
         {label}
       </h2>
-      <span ref={barRef} className={`${spanClasses} ${isAnimating ? "bg-red" : "bg-white"}`} />
+      <span className={`${spanClasses} ${isAnimating ? "bg-red-800" : "bg-white"}`} />
     </Link>
-  )
-}
+  );
+};
 
 export default CaseLinkDesktop;
 
@@ -79,7 +84,7 @@ const labelClasses = `
   text-shadow-sm
   mb-[24px]
   transition-[transform,color]
-  transition-duration-500
+  duration-500
   ease-in-out
 `;
 
@@ -92,6 +97,6 @@ const spanClasses = `
   -translate-x-1/2
   -translate-y-[80%]
   transition-[width,background-color]
-  transition-duration-300
+  duration-300
   ease-in-out
 `;

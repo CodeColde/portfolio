@@ -1,44 +1,30 @@
 "use client";
 
-// ratio of gif is 0.56:1 (width 168 height 300);
+import { motion, useScroll, useTransform } from "motion/react";
 
-import { useEffect, useState } from "react";
+const FADE_IN_DELAY_S = 2;
+const FADE_OUT_SCROLL_PX = 100;
 
 const ScrollIndicator = () => {
-  const [opacity, setOpacity] = useState(1);
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => {
-    const loadIn = setTimeout(() => {
-      setMounted(true);
-    }, 2000);
-    return () => clearTimeout(loadIn);
-  }, []);
-
-  useEffect(() => {
-    if (!mounted) {
-      return;
-    }
-    const handleScroll = () => {
-      const scrollY = window.scrollY || window.pageYOffset;
-      setOpacity(scrollY < 100 ? 1 : 0);
-    };
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    // Run on mount in case already scrolled
-    handleScroll();
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, [mounted]);
+  const { scrollY } = useScroll();
+  const scrollOpacity = useTransform(scrollY, [0, FADE_OUT_SCROLL_PX], [1, 0]);
 
   return (
-    <div
+    <motion.div
       id="scroll-indicator"
-      className="absolute bottom-[4%] left-1/2 -translate-x-1/2 flex items-center flex-col transition-opacity duration-300 ease-in-out"
-      style={{ opacity: mounted ? opacity : 0 }}
+      className="absolute bottom-[4%] left-1/2 -translate-x-1/2"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ delay: FADE_IN_DELAY_S, duration: 0.3, ease: "easeInOut" }}
+      aria-hidden
     >
-      <p className="text-white font-light mb-4 text-center text-sm">Scroll</p>
-      <img
-        src="/ScrollIndicator.gif" alt="Scroll Indicator" height="60px" width="33px" />
-    </div>
+      <motion.div style={{ opacity: scrollOpacity }} className="flex flex-col items-center">
+        <p className="text-white font-light mb-4 text-center text-sm">Scroll</p>
+        <div className="w-[26px] h-[44px] rounded-full border-2 border-white flex justify-center pt-2">
+          <span className="block w-[4px] h-[8px] rounded-full bg-white animate-scroll-wheel motion-reduce:animate-none" />
+        </div>
+      </motion.div>
+    </motion.div>
   );
 };
 

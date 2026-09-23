@@ -19,6 +19,14 @@ export const experience = {
       validation: (Rule: Rule) => Rule.required().error("Company is required"),
     },
     {
+      name: "companyUrl",
+      title: "Company URL",
+      description: "Optional. When set, the company name on the About page links here.",
+      type: "url",
+      validation: (Rule: Rule) =>
+        Rule.uri({ scheme: ["http", "https"] }).error("Enter a full URL starting with http:// or https://"),
+    },
+    {
       name: "startDate",
       title: "Start Date",
       type: "date",
@@ -40,5 +48,5 @@ export const experience = {
         Rule.required().error("Details are required"),
       ],
     },
-  ]
-}
+  ],
+};

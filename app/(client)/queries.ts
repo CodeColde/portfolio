@@ -7,11 +7,12 @@ const caseSummaryQuery = `*[_type == "cases"] | order(year desc) {
     title,
     slug,
     coverImage,
-    coverImageMobile
+    coverImageMobile,
+    "coverVideo": coverVideo.asset->url
   }
 `;
 
 export async function getHomepageData() {
-	const data: CaseSummaryResponse = await client.fetch(caseSummaryQuery);
-	return data;
+  const data: CaseSummaryResponse = await client.fetch(caseSummaryQuery);
+  return data;
 }
