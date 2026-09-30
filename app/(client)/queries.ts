@@ -3,7 +3,6 @@ import { client } from "@/sanity/lib/client";
 
 const caseSummaryQuery = `*[_type == "cases"] | order(year desc) {
     _id,
-    client,
     title,
     slug,
     coverImage,

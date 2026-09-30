@@ -1,7 +1,5 @@
 "use client";
 import { useCallback, useEffect, useState } from "react";
-import storeNavBg, { stgname } from "../utils/storeNavBg";
-import useBgHook from "../utils/useBgHook";
 import NavButton from "./NavButton";
 import { sendGAEvent } from "@next/third-parties/google";
 import {
@@ -37,7 +35,6 @@ const NavMenu = () => {
 
   const isOpen = openedOn === pathName;
   const shouldAnimate = animateOn === pathName;
-  const bg = useBgHook(stgname);
 
   const toggleNavigation = () => {
     sendGAEvent("event", "navigationMenuToggled", {});
@@ -65,12 +62,6 @@ const NavMenu = () => {
     }
   }, [isOpen]);
 
-  useEffect(() => {
-    // Reset the stored nav background on every route change.
-    void pathName;
-    storeNavBg(false);
-  }, [pathName]);
-
   const pages = Object.keys(pageIndex) as PageKeys[];
   return (
     <nav
@@ -88,7 +79,7 @@ const NavMenu = () => {
         className={`${navContainerStyle} ${
           isOpen
             ? shouldAnimate
-              ? `${navContainerOpenStyle} ${bg ? "bg-black" : "bg-transparent"}`
+              ? `${navContainerOpenStyle} bg-transparent`
               : `${navContainerCloseStyle} bg-transparent`
             : navContainerCloseStyle
         }`}

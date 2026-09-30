@@ -29,10 +29,9 @@ export const coverAssets = {
         list: [
           { title: "Home", value: "home" },
           { title: "About", value: "about" },
-          { title: "Work", value: "work" },
           { title: "Blog", value: "blog" },
-        ]
-      }
+        ],
+      },
     },
-  ]
-}
+  ],
+};
