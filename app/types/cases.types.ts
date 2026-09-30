@@ -40,7 +40,6 @@ export interface CaseEntry {
 
 export interface CaseIntroEntry {
   _id: string;
-  client: string;
   coverImage: {
     _type: string;
     asset: {

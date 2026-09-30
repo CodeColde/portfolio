@@ -10,7 +10,6 @@ import {
 } from "../styles/NavMenu.styles";
 import { usePathname, useRouter } from "next/navigation";
 import { useRef, useState, useTransition } from "react";
-import storeNavBg from "../utils/storeNavBg";
 import pageIndex, { type PageKeys } from "../constants/pageIndex";
 import { usePageTransition } from "../contexts/PageTransitionContext";
 
@@ -62,7 +61,6 @@ const NavPageItem = ({ isOpen, holdNavOpen, closeNav, page }: Props) => {
         main.style.transition = "none";
         main.style.opacity = "0";
       }
-      storeNavBg(false);
       cover(bg);
 
       setIsSweeping(false);

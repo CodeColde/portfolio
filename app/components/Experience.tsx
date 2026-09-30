@@ -22,7 +22,7 @@ const Experience = ({ experience, education, extra }: Props) => {
 
   return (
     <div className="mb-4">
-      <div className="flex items-start justify-between mb-4 max-">
+      <div className="flex items-start justify-between mb-4">
         <div>
           <ExperienceHeader>{title}</ExperienceHeader>
           <CompanyHeader href={companyUrl}>{company}</CompanyHeader>
