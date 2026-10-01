@@ -1,27 +1,60 @@
 "use client";
-import { motion, useReducedMotion } from "motion/react";
-import { useRef, useState } from "react";
-import useMediaQuery from "../utils/useMediaQuery";
+import { motion } from "motion/react";
+import { useEffect, useRef, useState } from "react";
 import { coverVideoStage } from "../utils/coverVideoStage";
 
-const DESKTOP_MEDIA_QUERY = "(min-width: 891px)";
+const VIDEO_MEDIA_QUERY = "(min-width: 891px) and (prefers-reduced-motion: no-preference)";
+const LOAD_AHEAD_MARGIN = "50% 0px";
 
 interface Props {
   src: string;
-  preload?: "auto" | "metadata";
+  critical?: boolean;
   className?: string;
 }
 
-const CaseCoverVideo = ({ src, preload = "metadata", className = "" }: Props) => {
+const CaseCoverVideo = ({ src, critical = false, className = "" }: Props) => {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [isHandoff] = useState(() => coverVideoStage.isActive());
-  const [isReady, setIsReady] = useState(isHandoff);
-  const isDesktop = useMediaQuery(DESKTOP_MEDIA_QUERY);
-  const reduceMotion = useReducedMotion();
+  const [isPlaying, setIsPlaying] = useState(isHandoff);
+  const [shouldLoad, setShouldLoad] = useState(critical);
 
-  if (!isDesktop || reduceMotion) {
-    return null;
-  }
+  const handlePlaying = () => {
+    setIsPlaying(true);
+    if (isHandoff) {
+      coverVideoStage.release();
+    }
+  };
+
+  useEffect(() => {
+    const video = videoRef.current;
+    if (video && !video.paused && video.readyState >= HTMLMediaElement.HAVE_FUTURE_DATA) {
+      setIsPlaying(true);
+    }
+  }, []);
+
+  useEffect(() => {
+    const video = videoRef.current;
+    if (shouldLoad || !video) {
+      return;
+    }
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry?.isIntersecting) {
+          setShouldLoad(true);
+        }
+      },
+      { rootMargin: LOAD_AHEAD_MARGIN },
+    );
+    observer.observe(video);
+    return () => observer.disconnect();
+  }, [shouldLoad]);
+
+  useEffect(() => {
+    const query = window.matchMedia(VIDEO_MEDIA_QUERY);
+    const reselect = () => videoRef.current?.load();
+    query.addEventListener("change", reselect);
+    return () => query.removeEventListener("change", reselect);
+  }, []);
 
   const syncToStage = () => {
     const video = videoRef.current;
@@ -32,31 +65,26 @@ const CaseCoverVideo = ({ src, preload = "metadata", className = "" }: Props) =>
     video.currentTime = time;
   };
 
-  const handlePlaying = () => {
-    if (isHandoff) {
-      coverVideoStage.release();
-    }
-  };
-
   return (
     <motion.video
       ref={videoRef}
       className={`absolute inset-0 h-full w-full object-cover object-center ${className}`}
-      src={src}
       autoPlay
       muted
       loop
       playsInline
-      preload={preload}
+      preload="auto"
       disablePictureInPicture
       aria-hidden
+      data-intro-critical={critical || undefined}
       initial={{ opacity: isHandoff ? 1 : 0 }}
-      animate={{ opacity: isReady ? 1 : 0 }}
+      animate={{ opacity: isPlaying ? 1 : 0 }}
       transition={{ duration: isHandoff ? 0 : 0.5, ease: "easeOut" }}
       onLoadedMetadata={isHandoff ? syncToStage : undefined}
-      onCanPlay={() => setIsReady(true)}
       onPlaying={handlePlaying}
-    />
+    >
+      {shouldLoad && <source src={src} media={VIDEO_MEDIA_QUERY} />}
+    </motion.video>
   );
 };
 

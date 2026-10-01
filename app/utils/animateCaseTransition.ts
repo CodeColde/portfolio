@@ -102,7 +102,7 @@ async function animateCaseTransition({
   lenis?.scrollTo(0, { immediate: true, force: true });
 
   const video = caseEl.querySelector("video");
-  if (video) {
+  if (video?.currentSrc) {
     coverVideoStage.adopt(video, HERO_MEDIA_OPACITY);
   }
 

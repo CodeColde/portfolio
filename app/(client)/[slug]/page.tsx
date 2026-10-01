@@ -39,7 +39,7 @@ const page = async ({ params }: PageProps) => {
           />
         </div>
         <div className="absolute z-2 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full px-6 text-center text-white">
-          <h1 className="text-8xl max-md:text-6xl max-sm:text-5xl max-xs:text-4xl font-bold italic text-shadow-sm mb-[24px]">
+          <h1 className="text-8xl max-md:text-6xl max-sm:text-5xl max-xs:text-4xl font-bold italic text-shadow-sm mb-6">
             {caseDetails.title}
           </h1>
           {caseDetails.liveLink && (
@@ -54,7 +54,7 @@ const page = async ({ params }: PageProps) => {
         <h3 className={`${excerptFont.className} antialiased font-extrabold text-3xl max-lg:text-3xl max-md:text-2xl`}>
           {caseDetails.excerpt}
         </h3>
-        <hr className="w-[24px] mt-14" />
+        <hr className="w-6 mt-14" />
         <BodySectionHeader>Purpose</BodySectionHeader>
         <ContentParagraph>{caseDetails.purpose}</ContentParagraph>
         <BodySectionHeader>Responsibilities</BodySectionHeader>

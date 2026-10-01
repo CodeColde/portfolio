@@ -34,7 +34,7 @@ const CaseSummaryItem = ({ caseDetails, idx }: Props) => {
     <section
       id={caseItemId}
       ref={sectionRef}
-      className={`relative ${isFirst ? "h-[90vh]" : "h-[800px] max-sm:h-screen"} w-full overflow-hidden bg-gray-500`}
+      className={`relative ${isFirst ? "h-[90vh]" : "h-200 max-sm:h-screen"} w-full overflow-hidden bg-gray-500`}
     >
       <motion.div
         data-cover-layer
@@ -51,10 +51,10 @@ const CaseSummaryItem = ({ caseDetails, idx }: Props) => {
         />
       </motion.div>
 
-      <div className="hidden min-sm:flex relative z-2 flex-col justify-center items-center h-full text-white px-6 text-center">
+      <div className="hidden sm:flex relative z-2 flex-col justify-center items-center h-full text-white px-6 text-center">
         <CaseLinkDesktop slug={caseDetails.slug.current} label={caseDetails.title} settleParallax={settleParallax} />
       </div>
-      <div className="min-sm:hidden flex relative z-2 flex-col justify-center items-center h-full text-white px-6 text-center">
+      <div className="sm:hidden flex relative z-2 flex-col justify-center items-center h-full text-white px-6 text-center">
         <h2 className="text-8xl max-md:text-6xl max-sm:text-5xl max-xs:text-4xl font-bold italic mb-6">
           {caseDetails.title}
         </h2>
