@@ -30,6 +30,13 @@ const NavMenu = () => {
   const [hasSettled, setHasSettled] = useState(true);
   const [isFadingOut, setIsFadingOut] = useState(false);
   const fadeTimeout = useRef<ReturnType<typeof setTimeout>>(undefined);
+  const [prevPathName, setPrevPathName] = useState(pathName);
+
+  if (prevPathName !== pathName) {
+    setPrevPathName(pathName);
+    setOpenedOn(null);
+    setAnimateOn(null);
+  }
 
   const isOpen = openedOn === pathName;
   const shouldAnimate = animateOn === pathName;
