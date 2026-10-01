@@ -26,7 +26,7 @@ const Experience = ({ experience, education, extra }: Props) => {
         <div>
           <ExperienceHeader>{title}</ExperienceHeader>
           <CompanyHeader href={companyUrl}>{company}</CompanyHeader>
-          <div className="min-md:hidden">
+          <div className="md:hidden">
             <DateAbout start={startDate} end={endDate} year={year} />
           </div>
         </div>

@@ -20,8 +20,8 @@ const ScrollIndicator = () => {
     >
       <motion.div style={{ opacity: scrollOpacity }} className="flex flex-col items-center">
         <p className="text-white font-light mb-4 text-center text-sm">Scroll</p>
-        <div className="w-[26px] h-[44px] rounded-full border-2 border-white flex justify-center pt-2">
-          <span className="block w-[4px] h-[8px] rounded-full bg-white animate-scroll-wheel motion-reduce:animate-none" />
+        <div className="w-6.5 h-11 rounded-full border-2 border-white flex justify-center pt-2">
+          <span className="block w-1 h-2 rounded-full bg-white animate-scroll-wheel motion-reduce:animate-none" />
         </div>
       </motion.div>
     </motion.div>

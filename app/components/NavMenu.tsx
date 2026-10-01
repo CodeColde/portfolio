@@ -1,5 +1,5 @@
 "use client";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useRef, useState } from "react";
 import NavButton from "./NavButton";
 import { sendGAEvent } from "@next/third-parties/google";
 import {
@@ -25,13 +25,11 @@ import ContactContainer from "./ContactContainer";
 
 const NavMenu = () => {
   const pathName = usePathname();
-  // Both flags are stamped with the route they were set on, so a route change
-  // resets them in the same render instead of one effect later. That removes
-  // the frame where the new page was painted behind a still-open menu.
   const [openedOn, setOpenedOn] = useState<string | null>(null);
   const [animateOn, setAnimateOn] = useState<string | null>(null);
   const [hasSettled, setHasSettled] = useState(true);
   const [isFadingOut, setIsFadingOut] = useState(false);
+  const fadeTimeout = useRef<ReturnType<typeof setTimeout>>(undefined);
 
   const isOpen = openedOn === pathName;
   const shouldAnimate = animateOn === pathName;
@@ -42,6 +40,9 @@ const NavMenu = () => {
     if (isOpen) {
       setHasSettled(false);
       setTimeout(() => setHasSettled(true), 600);
+      setIsFadingOut(true);
+      clearTimeout(fadeTimeout.current);
+      fadeTimeout.current = setTimeout(() => setIsFadingOut(false), 300);
       setOpenedOn(null);
     } else {
       setOpenedOn(pathName);
@@ -51,16 +52,6 @@ const NavMenu = () => {
   const holdNavOpen = useCallback(() => {
     setAnimateOn(null);
   }, []);
-
-  useEffect(() => {
-    if (!isOpen) {
-      setIsFadingOut(true);
-      const timeout = setTimeout(() => {
-        setIsFadingOut(false);
-      }, 300);
-      return () => clearTimeout(timeout);
-    }
-  }, [isOpen]);
 
   const pages = Object.keys(pageIndex) as PageKeys[];
   return (

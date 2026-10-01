@@ -5,7 +5,7 @@ interface Props {
 const ContactContainer = ({ isOpen }: Props) => {
   return (
     <div
-      className={`absolute bottom-[2%] left-[2%] opacity-0 z-1 px-[9px] ${isOpen ? "block animate-load-contact" : "hidden"}`}
+      className={`absolute bottom-[2%] left-[2%] opacity-0 z-1 px-2.25 ${isOpen ? "block animate-load-contact" : "hidden"}`}
     >
       <h5 className="text-white max-sm:text-xs">
         For business enquiries,{" "}
@@ -15,7 +15,7 @@ const ContactContainer = ({ isOpen }: Props) => {
         .
       </h5>
     </div>
-  )
-}
+  );
+};
 
 export default ContactContainer;

@@ -20,7 +20,6 @@ const page = async () => {
   return (
     <main className="flex bg-blue-800 flex-row">
       <section className="sticky top-0 left-0 h-screen w-[25vw] opacity-75 max-md:hidden">
-        {/* next/image needs a relative parent for fill; the sticky section cannot be it. */}
         <div className="relative h-full w-full">
           <Image
             src={urlFor(coverImage).width(1200).height(1600).dpr(2).url()}
