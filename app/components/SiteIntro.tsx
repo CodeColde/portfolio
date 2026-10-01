@@ -4,7 +4,6 @@ import { useEffect, useRef, useSyncExternalStore } from "react";
 import playSiteIntro from "../utils/playSiteIntro";
 import { siteIntroGateScript } from "../utils/siteIntroGate";
 
-// The nav's page colours ripple out, then purple fills the screen.
 const WAVE_COLORS = ["text-red-800", "text-yellow-800", "text-blue-800", "text-purple-800"];
 const PURPLE_DELAY_MS = 260;
 const WAVES = WAVE_COLORS.map((color, index) => ({
@@ -13,7 +12,6 @@ const WAVES = WAVE_COLORS.map((color, index) => ({
 }));
 const NAME_DELAY_MS = PURPLE_DELAY_MS + 170;
 
-// html[data-intro] is set by the gate script and is the single source of truth.
 const subscribe = (onChange: () => void) => {
   const observer = new MutationObserver(onChange);
   observer.observe(document.documentElement, { attributeFilter: ["data-intro"] });
@@ -35,7 +33,6 @@ const SiteIntro = () => {
   const nameRef = useRef<HTMLParagraphElement>(null);
   const isGateInserted = useRef(false);
 
-  // Server-only, so it runs before first paint and React never re-creates it (which wouldn't execute).
   useServerInsertedHTML(() => {
     if (isGateInserted.current) {
       return null;
@@ -59,7 +56,6 @@ const SiteIntro = () => {
       delete root.dataset.intro;
     };
 
-    // Hydration took so long the CSS bail-out already hid the overlay.
     const { opacity, visibility } = getComputedStyle(overlay);
     if (visibility === "hidden" || Number(opacity) < 1) {
       finish();
@@ -67,7 +63,6 @@ const SiteIntro = () => {
     }
 
     root.dataset.intro = "running";
-    // Swallow scrolling before Lenis (on window) sees it, so the reveal lands where the visitor arrived.
     overlay.addEventListener("wheel", blockScroll, { passive: false });
     overlay.addEventListener("touchmove", blockScroll, { passive: false });
     const cancel = playSiteIntro({ stage, nameArrival, name, onComplete: finish });

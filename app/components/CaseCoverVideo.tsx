@@ -3,14 +3,11 @@ import { motion } from "motion/react";
 import { useEffect, useRef, useState } from "react";
 import { coverVideoStage } from "../utils/coverVideoStage";
 
-// The browser picks the source, so phones and reduced-motion visitors never download the video.
 const VIDEO_MEDIA_QUERY = "(min-width: 891px) and (prefers-reduced-motion: no-preference)";
-// Close enough to buffer while scrolling towards it, far enough not to compete with the first screen.
 const LOAD_AHEAD_MARGIN = "50% 0px";
 
 interface Props {
   src: string;
-  // Above the fold: loads from the HTML and holds the landing intro until it plays.
   critical?: boolean;
   className?: string;
 }
@@ -28,7 +25,6 @@ const CaseCoverVideo = ({ src, critical = false, className = "" }: Props) => {
     }
   };
 
-  // A critical video can start playing before hydration, when React isn't listening yet.
   useEffect(() => {
     const video = videoRef.current;
     if (video && !video.paused && video.readyState >= HTMLMediaElement.HAVE_FUTURE_DATA) {
@@ -53,7 +49,6 @@ const CaseCoverVideo = ({ src, critical = false, className = "" }: Props) => {
     return () => observer.disconnect();
   }, [shouldLoad]);
 
-  // Sources are only picked once, so pick again when e.g. the window crosses the desktop breakpoint.
   useEffect(() => {
     const query = window.matchMedia(VIDEO_MEDIA_QUERY);
     const reselect = () => videoRef.current?.load();

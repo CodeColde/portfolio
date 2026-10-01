@@ -45,7 +45,6 @@
     0% { transform: scale(0); }
     100% { transform: scale(1); }
   }
-  /* Slides in to DRIFT_OFFSET_PX (playSiteIntro.ts) right of centre, then creeps left until sent off. */
   @keyframes introNameArrive {
     0% {
       transform: translateX(calc(50vw + 50%));
@@ -104,7 +103,6 @@ html, body {
   height: 100vh;
 }
 
-/* Landing intro (SiteIntro) */
 .site-intro {
   display: none;
 }
@@ -112,14 +110,12 @@ html[data-intro] .site-intro {
   display: block;
   visibility: visible;
 }
-/* Hidden until the purple wave covers the screen (260ms delay + 540ms introWave). */
 html[data-intro] body {
   animation: introHideSite 0.8s;
 }
 @keyframes introHideSite {
   from, to { visibility: hidden; }
 }
-/* JS never took over: get out of the way. */
 html[data-intro="pending"] .site-intro {
   animation: introBailOut 0.3s ease-out 8s forwards;
 }
