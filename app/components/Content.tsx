@@ -1,4 +1,8 @@
-import type { PortableTextTypeComponentProps, PortableTextMarkComponentProps, PortableTextBlockComponent } from "next-sanity";
+import type {
+  PortableTextTypeComponentProps,
+  PortableTextMarkComponentProps,
+  PortableTextBlockComponent,
+} from "next-sanity";
 import { PortableText, type PortableTextReactComponents } from "next-sanity";
 import ContentParagraph from "./ContentParagraph";
 import ContentLink, { type SanityLinkValue } from "./ContentLink";
@@ -27,15 +31,18 @@ const Content = ({ children }: ContentProps) => {
       link: (props: PortableTextMarkComponentProps<SanityLinkValue>) => <ContentLink {...props} />,
     },
     block: {
-      normal: ((props) => (
-        <ContentParagraph>{props.children}</ContentParagraph>
-      )) as PortableTextBlockComponent,
+      normal: (props => <ContentParagraph>{props.children}</ContentParagraph>) as PortableTextBlockComponent,
     },
+    list: {
+      bullet: ({ children }) => <ul className={`${listStyle} list-disc`}>{children}</ul>,
+      number: ({ children }) => <ol className={`${listStyle} list-decimal`}>{children}</ol>,
+    },
+    listItem: ({ children }) => <li className="pl-1">{children}</li>,
   };
 
-  return (
-    <PortableText value={children} components={components} />
-  );
-}
+  return <PortableText value={children} components={components} />;
+};
 
 export default Content;
+
+const listStyle = "text-xl max-sm:text-lg leading-7 mb-6 pl-6 space-y-2";

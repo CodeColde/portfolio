@@ -1,6 +1,7 @@
 "use client";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import useSmartBack from "../utils/useSmartBack";
+import useIsOverDarkBackdrop from "../utils/useIsOverDarkBackdrop";
 import { usePathname } from "next/navigation";
 import Image from "next/image";
 import { usePageTransition } from "../contexts/PageTransitionContext";
@@ -18,6 +19,8 @@ const BackButton = () => {
   const handleBack = useSmartBack(isBlogSection ? "/blog/" : "/");
   const { cover } = usePageTransition();
   const reduceMotion = useReducedMotion();
+  const containerRef = useRef<HTMLDivElement>(null);
+  const isOverDark = useIsOverDarkBackdrop(containerRef);
 
   const handleClick = () => {
     if (isAnimating) {
@@ -34,6 +37,7 @@ const BackButton = () => {
 
   return (
     <motion.div
+      ref={containerRef}
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{
@@ -53,7 +57,7 @@ const BackButton = () => {
           alt="Back to my work"
           width={50}
           height={50}
-          className={`${isAnimating ? "opacity-0" : "opacity-100"} transition-opacity duration-100 ease-in-out`}
+          className={`${isAnimating ? "opacity-0" : "opacity-100"} ${isOverDark ? "" : "invert group-hover:invert-0"} transition-[opacity,filter] duration-100 ease-in-out`}
         />
         <span className="sr-only">Back</span>
       </button>
@@ -63,6 +67,7 @@ const BackButton = () => {
 export default BackButton;
 
 const buttonStyles = `
+  group
   z-3
   fixed
   h-[56px]

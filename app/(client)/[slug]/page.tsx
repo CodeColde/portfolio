@@ -29,7 +29,7 @@ const page = async ({ params }: PageProps) => {
   return (
     <main className="relative h-auto w-full pb-28 opacity-100">
       <BackButton />
-      <section className="h-[45vh] relative bg-black">
+      <section className="h-[45vh] relative bg-black" data-dark-backdrop>
         <div className="absolute inset-0 z-1 opacity-70">
           <CaseCoverMedia
             coverImage={caseDetails.coverImage}
