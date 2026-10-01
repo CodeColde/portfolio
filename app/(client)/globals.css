@@ -22,6 +22,8 @@
   --animate-nav-close: fadeOut 0.3s ease-in-out 0s 1 normal forwards;
   --animate-load-contact: fadeIn 0.2s ease-in-out 0.6s 1 normal forwards;
   --animate-scroll-wheel: scrollWheel 1.6s ease-in-out infinite;
+  --animate-swipe-finger: swipeFinger 1.8s ease-in-out infinite;
+  --animate-swipe-touch: swipeTouch 1.8s ease-in-out infinite;
   --animate-intro-wave: introWave 0.54s cubic-bezier(0.5, 0, 0.25, 1) both;
   --animate-intro-name-arrive: introNameArrive 7.5s both;
 
@@ -39,6 +41,17 @@
     0% { transform: translateY(0); opacity: 1; }
     70% { transform: translateY(14px); opacity: 0; }
     100% { transform: translateY(0); opacity: 0; }
+  }
+  @keyframes swipeFinger {
+    0% { transform: translateY(12px) scale(1.15); opacity: 0; }
+    20% { transform: translateY(12px) scale(1); opacity: 1; }
+    70% { transform: translateY(0) scale(1); opacity: 1; }
+    90%, 100% { transform: translateY(0) scale(1); opacity: 0; }
+  }
+  @keyframes swipeTouch {
+    0%, 15% { transform: scale(0); opacity: 0; }
+    25%, 70% { transform: scale(1); opacity: 1; }
+    90%, 100% { transform: scale(1.4); opacity: 0; }
   }
 
   @keyframes introWave {

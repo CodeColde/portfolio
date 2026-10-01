@@ -10,7 +10,6 @@ interface AnimateOptions {
   lenis: Lenis | undefined;
   settleParallax?: MotionValue<number>;
   onSettle?: () => void;
-  onComplete: () => void;
 }
 
 const HERO_HEIGHT = "45vh";
@@ -35,15 +34,7 @@ const scrollWindowTo = (top: number, lenis: Lenis | undefined, duration: number)
   }).finished.then(() => undefined);
 };
 
-async function animateCaseTransition({
-  caseItemId,
-  slug,
-  router,
-  lenis,
-  settleParallax,
-  onSettle,
-  onComplete,
-}: AnimateOptions) {
+async function animateCaseTransition({ caseItemId, slug, router, lenis, settleParallax, onSettle }: AnimateOptions) {
   const caseEl = document.getElementById(caseItemId);
   if (!caseEl) {
     return;
@@ -53,7 +44,6 @@ async function animateCaseTransition({
 
   if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
     router.push(href);
-    onComplete();
     return;
   }
 
@@ -107,7 +97,6 @@ async function animateCaseTransition({
   }
 
   router.push(href);
-  onComplete();
 }
 
 export default animateCaseTransition;

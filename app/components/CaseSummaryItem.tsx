@@ -58,7 +58,7 @@ const CaseSummaryItem = ({ caseDetails, idx }: Props) => {
         <h2 className="text-8xl max-md:text-6xl max-sm:text-5xl max-xs:text-4xl font-bold italic mb-6">
           {caseDetails.title}
         </h2>
-        <CaseLink href={`/${caseDetails.slug.current}`} />
+        <CaseLink slug={caseDetails.slug.current} label={caseDetails.title} settleParallax={settleParallax} />
       </div>
       {isFirst && <ScrollIndicator />}
     </section>

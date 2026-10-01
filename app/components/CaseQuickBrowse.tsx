@@ -1,5 +1,8 @@
 "use client";
+import { useEffect, useState } from "react";
 import { useLenis } from "../contexts/LenisContext";
+
+const ACTIVE_LINE_ROOT_MARGIN = "-50% 0px -50% 0px";
 
 interface Props {
   data: {
@@ -10,6 +13,29 @@ interface Props {
 
 const CaseQuickBrowse = ({ data }: Props) => {
   const lenis = useLenis();
+  const [activeId, setActiveId] = useState(data[0]?.id);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      entries => {
+        for (const entry of entries) {
+          if (entry.isIntersecting) {
+            setActiveId(entry.target.id);
+          }
+        }
+      },
+      { rootMargin: ACTIVE_LINE_ROOT_MARGIN },
+    );
+
+    for (const { id } of data) {
+      const section = document.getElementById(id);
+      if (section) {
+        observer.observe(section);
+      }
+    }
+
+    return () => observer.disconnect();
+  }, [data]);
 
   const scrollToCase = (caseId: string) => {
     const target = document.getElementById(caseId);
@@ -29,12 +55,22 @@ const CaseQuickBrowse = ({ data }: Props) => {
 
   return (
     <nav aria-label="Cases" className="fixed top-1/2 left-4 -translate-y-1/2 z-4 flex flex-col">
-      {data.map(({ id, label }) => (
-        <button key={id} type="button" onClick={() => scrollToCase(id)} className={itemClasses}>
-          <span aria-hidden className={dotClasses} />
-          <span className={labelClasses}>{label}</span>
-        </button>
-      ))}
+      {data.map(({ id, label }) => {
+        const isActive = id === activeId;
+
+        return (
+          <button
+            key={id}
+            type="button"
+            onClick={() => scrollToCase(id)}
+            aria-current={isActive ? "true" : undefined}
+            className={itemClasses}
+          >
+            <span aria-hidden className={`${dotClasses} ${isActive ? activeDotSizeClasses : dotSizeClasses}`} />
+            <span className={labelClasses}>{label}</span>
+          </button>
+        );
+      })}
     </nav>
   );
 };
@@ -49,10 +85,20 @@ const itemClasses = `
   text-left
 `;
 
-const dotClasses = `
+const dotSizeClasses = `
   h-2
   w-2
   my-2
+`;
+
+const activeDotSizeClasses = `
+  h-3
+  w-3
+  my-1.5
+  -ml-0.5
+`;
+
+const dotClasses = `
   rounded-full
   bg-white
   transition-[height,width,background-color,margin]
