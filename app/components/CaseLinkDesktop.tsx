@@ -1,10 +1,6 @@
 import Link from "next/link";
-import { useRouter } from "next/navigation";
-import { useState } from "react";
 import type { MotionValue } from "motion/react";
-import animateCaseTransition from "../utils/animateCaseTransition";
-import { useLenis } from "../contexts/LenisContext";
-import formatId from "../utils/formatId";
+import useCaseTransition from "../utils/useCaseTransition";
 
 interface Props {
   slug: string;
@@ -13,32 +9,7 @@ interface Props {
 }
 
 const CaseLinkDesktop = ({ slug, label, settleParallax }: Props) => {
-  const router = useRouter();
-  const lenis = useLenis();
-  const [isAnimating, setIsAnimating] = useState(false);
-  const [isSettling, setIsSettling] = useState(false);
-  const caseItemId = formatId(label);
-
-  const handleClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
-    e.preventDefault();
-    if (isAnimating) {
-      return;
-    }
-    setIsAnimating(true);
-
-    animateCaseTransition({
-      caseItemId,
-      slug,
-      router,
-      lenis,
-      settleParallax,
-      onSettle: () => setIsSettling(true),
-      onComplete: () => {
-        setIsAnimating(false);
-        setIsSettling(false);
-      },
-    });
-  };
+  const { isTransitioning, isSettling, handleClick } = useCaseTransition({ slug, label, settleParallax });
 
   return (
     <Link
@@ -46,14 +17,14 @@ const CaseLinkDesktop = ({ slug, label, settleParallax }: Props) => {
       prefetch
       onClick={handleClick}
       aria-label={`Go to project: ${label}`}
-      className={`${linkClasses} ${isAnimating ? "" : staticLinkClasses}`}
+      className={`${linkClasses} ${isTransitioning ? "" : staticLinkClasses}`}
     >
       <h2
-        className={`${labelClasses} ${isAnimating && !isSettling ? "-skew-x-20" : ""} ${isAnimating ? "text-white" : ""}`}
+        className={`${labelClasses} ${isTransitioning && !isSettling ? "-skew-x-20" : ""} ${isTransitioning ? "text-white" : ""}`}
       >
         {label}
       </h2>
-      <span className={`${spanClasses} ${isAnimating ? "bg-red-800" : "bg-white"}`} />
+      <span className={`${spanClasses} ${isTransitioning ? "bg-red-800" : "bg-white"}`} />
     </Link>
   );
 };
