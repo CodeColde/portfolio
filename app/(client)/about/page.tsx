@@ -30,6 +30,7 @@ const page = async () => {
             placeholder="blur"
             blurDataURL={urlFor(coverImage).width(24).height(32).blur(10).url()}
             priority
+            data-intro-critical
           />
         </div>
       </section>

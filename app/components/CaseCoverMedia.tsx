@@ -8,7 +8,7 @@ const MOBILE_MAX_WIDTH_PX = 890;
 
 interface Props {
   coverImage: SanityImageSource;
-  coverImageMobile: SanityImageSource;
+  coverImageMobile?: SanityImageSource | null;
   coverVideo?: string | null;
   priority?: boolean;
 }
@@ -28,18 +28,24 @@ const CaseCoverMedia = ({ coverImage, coverImageMobile, coverVideo, priority = f
     ...imageOptions,
     src: urlFor(coverImage).url(),
   });
+  const mobileImageSource = coverImageMobile ?? coverImage;
   const { props: mobileImgProps } = getImageProps({
     ...imageOptions,
-    src: urlFor(coverImageMobile).url(),
+    src: urlFor(mobileImageSource).url(),
   });
 
   return (
     <>
       <picture>
         <source media={`(min-width: ${MOBILE_MAX_WIDTH_PX + 1}px)`} srcSet={desktopSrcSet} sizes="100vw" />
-        <img {...mobileImgProps} alt="" className="object-cover object-center" />
+        <img
+          {...mobileImgProps}
+          alt=""
+          className="object-cover object-center"
+          data-intro-critical={priority || undefined}
+        />
       </picture>
-      {coverVideo && <CaseCoverVideo src={coverVideo} preload={priority ? "auto" : "metadata"} />}
+      {coverVideo && <CaseCoverVideo src={coverVideo} critical={priority} />}
     </>
   );
 };

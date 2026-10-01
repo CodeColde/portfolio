@@ -6,6 +6,7 @@ import { GoogleAnalytics } from "@next/third-parties/google";
 import { LenisProvider } from "../contexts/LenisContext";
 import { PageTransitionProvider } from "../contexts/PageTransitionContext";
 import CoverVideoStage from "../components/CoverVideoStage";
+import SiteIntro from "../components/SiteIntro";
 
 const mainFont = Chakra_Petch({
   variable: "--font-chakra-petch",
@@ -24,8 +25,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body className={`${mainFont.className} antialiased`}>
+        <SiteIntro />
         <LenisProvider>
           <PageTransitionProvider>
             <NavMenu />

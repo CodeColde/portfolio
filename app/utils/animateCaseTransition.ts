@@ -101,8 +101,9 @@ async function animateCaseTransition({
   lenis?.start();
   lenis?.scrollTo(0, { immediate: true, force: true });
 
+  // No currentSrc on phones and with reduced motion: nothing to hand over.
   const video = caseEl.querySelector("video");
-  if (video) {
+  if (video?.currentSrc) {
     coverVideoStage.adopt(video, HERO_MEDIA_OPACITY);
   }
 
