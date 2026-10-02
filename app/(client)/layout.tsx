@@ -10,7 +10,7 @@ import SiteIntro from "../components/SiteIntro";
 
 const mainFont = Chakra_Petch({
   variable: "--font-chakra-petch",
-  weight: ["300", "400", "500", "600", "700"],
+  weight: ["300", "400", "700"],
   subsets: ["latin"],
 });
 

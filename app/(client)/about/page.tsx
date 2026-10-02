@@ -1,7 +1,6 @@
-import { urlFor } from "@/sanity/lib/image";
 import { PortableText } from "next-sanity";
-import Image from "next/image";
 import { getAboutData } from "./queries";
+import AboutPortrait from "@/app/components/AboutPortrait";
 import CvDownloadButton from "@/app/components/CvDownloadButton";
 import Experience from "@/app/components/Experience";
 import Subheader from "@/app/components/Subheader";
@@ -10,8 +9,7 @@ const page = async () => {
   const aboutData = await getAboutData();
 
   const openingText = aboutData.first[0].about;
-  const coverImage = aboutData.second[0].coverImage;
-  const altText = aboutData.second[0].altText;
+  const portrait = aboutData.second[0];
   const experienceData = aboutData.third;
   const educationData = aboutData.fourth;
   const extrasData = aboutData.fifth;
@@ -21,17 +19,7 @@ const page = async () => {
     <main className="flex bg-blue-800 flex-row">
       <section className="sticky top-0 left-0 h-screen w-[25vw] opacity-75 max-md:hidden">
         <div className="relative h-full w-full">
-          <Image
-            src={urlFor(coverImage).width(1200).height(1600).dpr(2).url()}
-            alt={altText}
-            fill
-            sizes="(max-width: 890px) 0px, 25vw"
-            className="object-cover"
-            placeholder="blur"
-            blurDataURL={urlFor(coverImage).width(24).height(32).blur(10).url()}
-            priority
-            data-intro-critical
-          />
+          <AboutPortrait portrait={portrait} />
         </div>
       </section>
       <section className="w-[75vw] overflow-y-auto max-md:w-screen">

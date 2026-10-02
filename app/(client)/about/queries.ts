@@ -20,7 +20,8 @@ const aboutOpeningQuery = `*[_type == "openings"] {
 }`;
 const coverAssetQuery = `*[_type == "coverAssets" && location == "about"] {
 	coverImage,
-	altText
+	altText,
+	"lqip": coverImage.asset->metadata.lqip
 }`;
 const experienceQuery = `*[_type == "experience"] | order(startDate desc) {
 	company,
