@@ -1,5 +1,5 @@
 import { notFound } from "next/navigation";
-import { getCaseBySlug } from "./queries";
+import { getCaseBySlug, getCaseSlugs, getNextCase } from "./queries";
 import BackButton from "@/app/components/BackButton";
 import CaseCoverMedia from "@/app/components/CaseCoverMedia";
 import { Orbitron } from "next/font/google";
@@ -7,6 +7,7 @@ import Content from "@/app/components/Content";
 import BodySectionHeader from "@/app/components/BodySectionHeader";
 import ProjectLink from "@/app/components/ProjectLink";
 import ContentParagraph from "@/app/components/ContentParagraph";
+import NextCaseButton from "@/app/components/NextCaseButton";
 
 interface PageProps {
   params: Promise<{ slug: string }>;
@@ -17,10 +18,15 @@ const excerptFont = Orbitron({
   subsets: ["latin"],
 });
 
+export async function generateStaticParams() {
+  const slugs = await getCaseSlugs();
+  return slugs.map(slug => ({ slug }));
+}
+
 const page = async ({ params }: PageProps) => {
   const { slug } = await params;
 
-  const caseDetails = await getCaseBySlug(slug);
+  const [caseDetails, nextCase] = await Promise.all([getCaseBySlug(slug), getNextCase(slug)]);
 
   if (!caseDetails) {
     notFound();
@@ -60,6 +66,7 @@ const page = async ({ params }: PageProps) => {
         <BodySectionHeader>Responsibilities</BodySectionHeader>
         <Content>{caseDetails.responsibilities}</Content>
       </section>
+      {nextCase && <NextCaseButton slug={nextCase.slug} title={nextCase.title} />}
     </main>
   );
 };

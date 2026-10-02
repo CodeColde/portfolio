@@ -2,9 +2,12 @@
 import { motion } from "motion/react";
 import { useEffect, useRef, useState } from "react";
 import { coverVideoStage } from "../utils/coverVideoStage";
+import whenMediaShowable from "../utils/whenMediaShowable";
 
 const VIDEO_MEDIA_QUERY = "(min-width: 891px) and (prefers-reduced-motion: no-preference)";
 const LOAD_AHEAD_MARGIN = "50% 0px";
+const CRITICAL_VIDEO_SELECTOR = "video[data-intro-critical]";
+const CRITICAL_VIDEO_WAIT_MS = 4000;
 
 interface Props {
   src: string;
@@ -37,16 +40,31 @@ const CaseCoverVideo = ({ src, critical = false, className = "" }: Props) => {
     if (shouldLoad || !video) {
       return;
     }
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry?.isIntersecting) {
-          setShouldLoad(true);
-        }
-      },
-      { rootMargin: LOAD_AHEAD_MARGIN },
-    );
-    observer.observe(video);
-    return () => observer.disconnect();
+    let observer: IntersectionObserver | undefined;
+    let isCancelled = false;
+    const criticalVideo = document.querySelector(CRITICAL_VIDEO_SELECTOR);
+    const criticalReady = criticalVideo ? whenMediaShowable(criticalVideo) : Promise.resolve();
+    const fallback = new Promise<void>(resolve => setTimeout(resolve, CRITICAL_VIDEO_WAIT_MS));
+
+    void Promise.race([criticalReady, fallback]).then(() => {
+      if (isCancelled) {
+        return;
+      }
+      observer = new IntersectionObserver(
+        ([entry]) => {
+          if (entry?.isIntersecting) {
+            setShouldLoad(true);
+          }
+        },
+        { rootMargin: LOAD_AHEAD_MARGIN },
+      );
+      observer.observe(video);
+    });
+
+    return () => {
+      isCancelled = true;
+      observer?.disconnect();
+    };
   }, [shouldLoad]);
 
   useEffect(() => {
