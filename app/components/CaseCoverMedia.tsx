@@ -1,10 +1,14 @@
 "use client";
 import { getImageProps } from "next/image";
+import { preload } from "react-dom";
 import type { SanityImageSource } from "@sanity/image-url";
 import { sanityImageLoader, urlFor } from "@/sanity/lib/image";
 import CaseCoverVideo from "./CaseCoverVideo";
 
 const MOBILE_MAX_WIDTH_PX = 890;
+const DESKTOP_MEDIA = `(min-width: ${MOBILE_MAX_WIDTH_PX + 1}px)`;
+const MOBILE_MEDIA = `not all and ${DESKTOP_MEDIA}`;
+const SIZES = "100vw";
 
 interface Props {
   coverImage: SanityImageSource;
@@ -17,14 +21,13 @@ const CaseCoverMedia = ({ coverImage, coverImageMobile, coverVideo, priority = f
   const imageOptions = {
     alt: "",
     fill: true,
-    sizes: "100vw",
+    sizes: SIZES,
     quality: 80,
-    priority,
+    loading: priority ? "eager" : "lazy",
+    fetchPriority: priority ? "high" : undefined,
     loader: sanityImageLoader,
   } as const;
-  const {
-    props: { srcSet: desktopSrcSet },
-  } = getImageProps({
+  const { props: desktopImgProps } = getImageProps({
     ...imageOptions,
     src: urlFor(coverImage).url(),
   });
@@ -34,10 +37,16 @@ const CaseCoverMedia = ({ coverImage, coverImageMobile, coverVideo, priority = f
     src: urlFor(mobileImageSource).url(),
   });
 
+  if (priority) {
+    const preloadOptions = { as: "image", imageSizes: SIZES, fetchPriority: "high" } as const;
+    preload(desktopImgProps.src, { ...preloadOptions, imageSrcSet: desktopImgProps.srcSet, media: DESKTOP_MEDIA });
+    preload(mobileImgProps.src, { ...preloadOptions, imageSrcSet: mobileImgProps.srcSet, media: MOBILE_MEDIA });
+  }
+
   return (
     <>
       <picture>
-        <source media={`(min-width: ${MOBILE_MAX_WIDTH_PX + 1}px)`} srcSet={desktopSrcSet} sizes="100vw" />
+        <source media={DESKTOP_MEDIA} srcSet={desktopImgProps.srcSet} sizes={SIZES} />
         <img
           {...mobileImgProps}
           alt=""
