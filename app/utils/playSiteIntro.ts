@@ -1,4 +1,5 @@
 import { animate, cubicBezier } from "motion";
+import whenMediaShowable from "./whenMediaShowable";
 
 type Bezier = [number, number, number, number];
 
@@ -43,21 +44,6 @@ const introElapsedMs = (stage: HTMLElement) => {
 
 const translateX = (el: HTMLElement) => new DOMMatrixReadOnly(getComputedStyle(el).transform).m41;
 
-const isPlaying = (video: HTMLVideoElement) => !video.paused && video.readyState >= HTMLMediaElement.HAVE_FUTURE_DATA;
-
-const whenShowable = (el: Element) => {
-  if (el instanceof HTMLImageElement) {
-    return el.decode().catch(() => undefined);
-  }
-  if (el instanceof HTMLVideoElement && el.currentSrc && !isPlaying(el) && !el.error) {
-    return new Promise<void>(resolve => {
-      el.addEventListener("playing", () => resolve(), { once: true });
-      el.addEventListener("error", () => resolve(), { once: true });
-    });
-  }
-  return Promise.resolve();
-};
-
 const playSiteIntro = ({ stage, nameArrival, name, onComplete }: Options) => {
   let cancelled = false;
   let animations: ReturnType<typeof animate>[] = [];
@@ -70,7 +56,7 @@ const playSiteIntro = ({ stage, nameArrival, name, onComplete }: Options) => {
 
   const isShowable = () => {
     const media = [...document.querySelectorAll(CRITICAL_MEDIA_SELECTOR)].filter(el => el.getClientRects().length);
-    return Promise.all([document.fonts.ready, ...media.map(whenShowable)]);
+    return Promise.all([document.fonts.ready, ...media.map(whenMediaShowable)]);
   };
 
   const exit = () => {

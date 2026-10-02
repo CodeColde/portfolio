@@ -1,5 +1,5 @@
 import { notFound } from "next/navigation";
-import { getCaseBySlug } from "./queries";
+import { getCaseBySlug, getCaseSlugs } from "./queries";
 import BackButton from "@/app/components/BackButton";
 import CaseCoverMedia from "@/app/components/CaseCoverMedia";
 import { Orbitron } from "next/font/google";
@@ -16,6 +16,11 @@ const excerptFont = Orbitron({
   variable: "--font-orbitron",
   subsets: ["latin"],
 });
+
+export async function generateStaticParams() {
+  const slugs = await getCaseSlugs();
+  return slugs.map(slug => ({ slug }));
+}
 
 const page = async ({ params }: PageProps) => {
   const { slug } = await params;
