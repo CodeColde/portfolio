@@ -15,23 +15,23 @@
   --breakpoint-2xl: 1600px;
   --breakpoint-3xl: 1800px;
 
-  --animate-load-in: fadeIn 0.2s ease-in-out 0s forwards;
-  --animate-nav-body-open: fadeIn 0.3s ease-in-out 0.4s 1 normal forwards;
-  --animate-nav-wrapper-open: openNavigation 0.3s ease-in-out 0s 1 normal forwards;
-  --animate-nav-wrapper-close: closeNavigation 0.3s ease-in-out 0.3s 1 normal forwards;
-  --animate-nav-close: fadeOut 0.3s ease-in-out 0s 1 normal forwards;
-  --animate-load-contact: fadeIn 0.2s ease-in-out 0.6s 1 normal forwards;
+  --animate-load-in: fadeIn var(--motion-base) ease-in-out 0s forwards;
+  --animate-nav-body-open: fadeIn var(--motion-base) ease-in-out var(--motion-nav-open) 1 normal forwards;
+  --animate-nav-wrapper-open: openNavigation var(--motion-nav-open) ease-in-out 0s 1 normal forwards;
+  --animate-nav-wrapper-close: closeNavigation var(--motion-move) ease-in-out var(--motion-fast) 1 normal forwards;
+  --animate-nav-close: fadeOut var(--motion-fast) ease-in-out 0s 1 normal forwards;
+  --animate-load-contact: fadeIn var(--motion-base) ease-in-out calc(var(--motion-nav-open) + var(--motion-fast)) 1 normal forwards;
   --animate-scroll-wheel: scrollWheel 1.6s ease-in-out infinite;
   --animate-swipe-finger: swipeFinger 1.8s ease-in-out infinite;
   --animate-swipe-touch: swipeTouch 1.8s ease-in-out infinite;
   --animate-intro-wave: introWave 0.54s cubic-bezier(0.5, 0, 0.25, 1) both;
   --animate-intro-name-arrive: introNameArrive 7.5s both;
 
-  --transition-nav-container: height 0.1s ease-in-out, background-color 0.1s ease-in-out, border-radius 0.1s ease-in-out;
-  --transition-nav-cirle: padding 0.2s ease-in-out;
-  --transition-nav-body: width 0.2s ease-in-out;
-  --transition-nav-span-hover: width 0.3s ease-in-out;
-  --transition-nav-strip: width 0.1s ease-in-out, translate 1s ease-in-out, rotate 1s ease-in-out, opacity 0.2s ease-in-out;
+  --transition-nav-container: height var(--motion-fast) ease-in-out, background-color var(--motion-fast) ease-in-out, border-radius var(--motion-fast) ease-in-out;
+  --transition-nav-cirle: padding var(--motion-fast) ease-in-out;
+  --transition-nav-body: width var(--motion-fast) ease-in-out;
+  --transition-nav-span-hover: width var(--motion-base) ease-in-out;
+  --transition-nav-strip: width var(--motion-fast) ease-in-out, translate var(--motion-move) ease-in-out, rotate var(--motion-move) ease-in-out, opacity var(--motion-fast) ease-in-out;
 
   @keyframes fadeIn {
     0% { opacity: 0 };
@@ -110,6 +110,16 @@
       background-color: transparent;
     }
   }
+}
+
+/* The site's shared animation pace; mirrored in app/constants/motion.ts. */
+:root {
+  --motion-fast: 0.18s;
+  --motion-base: 0.26s;
+  --motion-move: 0.44s;
+  --motion-hold: 0.08s;
+  /* The nav opens on every visit, so it runs a beat quicker than other moves. */
+  --motion-nav-open: calc(var(--motion-move) - var(--motion-hold));
 }
 
 html, body {

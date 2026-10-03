@@ -1,6 +1,7 @@
 import { animate, type MotionValue } from "motion";
 import type Lenis from "lenis";
 import type { useRouter } from "next/navigation";
+import { EASE, FAST_S, HOLD_S, MOVE_S } from "../constants/motion";
 import { coverVideoStage } from "./coverVideoStage";
 
 interface AnimateOptions {
@@ -14,9 +15,7 @@ interface AnimateOptions {
 
 const HERO_HEIGHT = "45vh";
 const HERO_MEDIA_OPACITY = 0.7;
-const SHRINK_DURATION_S = 0.6;
 
-const EASE: [number, number, number, number] = [0.45, 0, 0.55, 1];
 const easeInOut = (t: number) => (t < 0.5 ? 2 * t * t : 1 - (-2 * t + 2) ** 2 / 2);
 
 const wait = (ms: number) => new Promise<void>(resolve => setTimeout(resolve, ms));
@@ -55,11 +54,11 @@ async function animateCaseTransition({ caseItemId, slug, router, lenis, settlePa
   lenis?.stop();
 
   await Promise.all([
-    scrollWindowTo(absoluteTop, lenis, 0.4),
-    animate(caseEl, { height: "100vh" }, { duration: 0.3, ease: EASE }).finished,
-    animate(siblings, { opacity: 0 }, { duration: 0.4, ease: EASE }).finished,
+    scrollWindowTo(absoluteTop, lenis, MOVE_S),
+    animate(caseEl, { height: "100vh" }, { duration: MOVE_S, ease: EASE }).finished,
+    animate(siblings, { opacity: 0 }, { duration: FAST_S, ease: EASE }).finished,
   ]);
-  await wait(500);
+  await wait(HOLD_S * 1000);
 
   for (const el of siblings) {
     el.style.display = "none";
@@ -69,7 +68,7 @@ async function animateCaseTransition({ caseItemId, slug, router, lenis, settlePa
   const layer = caseEl.querySelector<HTMLElement>("[data-cover-layer]");
   const layerStartPct = layer ? (layer.offsetHeight / caseEl.offsetHeight) * 100 : 100;
   const layerStartOpacity = layer ? Number.parseFloat(getComputedStyle(layer).opacity) : HERO_MEDIA_OPACITY;
-  const shrink = { duration: SHRINK_DURATION_S, ease: EASE };
+  const shrink = { duration: MOVE_S, ease: EASE };
 
   onSettle?.();
   await Promise.all([

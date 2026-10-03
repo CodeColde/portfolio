@@ -2,7 +2,6 @@
 import Link from "next/link";
 import {
   linkStyle,
-  openSpanStyle,
   activeSpanStyle,
   pageSectionStyle,
   spanStyle,
@@ -11,6 +10,7 @@ import {
 import { usePathname, useRouter } from "next/navigation";
 import { useRef, useState, useTransition } from "react";
 import pageIndex, { type PageKeys } from "../constants/pageIndex";
+import { MOVE_S } from "../constants/motion";
 import { usePageTransition } from "../contexts/PageTransitionContext";
 
 interface Props {
@@ -20,12 +20,26 @@ interface Props {
   page: PageKeys;
 }
 
-const SWEEP_FALLBACK_MS = 500;
+const SWEEP_FALLBACK_MS = MOVE_S * 1000 + 100;
+// Slightly past the furthest screen edge, so the sweep lands there just before it ends.
+const SWEEP_OVERSHOOT = 1.1;
+
+// Sized from the item outward to cover the viewport, so the whole sweep plays on screen rather than mostly past its edges.
+const sweepSizeFrom = (bar: HTMLElement) => {
+  const rect = bar.getBoundingClientRect();
+  const centerX = rect.left + rect.width / 2;
+  const centerY = rect.top + rect.height / 2;
+  return {
+    width: 2 * Math.max(centerX, window.innerWidth - centerX) * SWEEP_OVERSHOOT,
+    height: 2 * Math.max(centerY, window.innerHeight - centerY) * SWEEP_OVERSHOOT,
+  };
+};
 
 const NavPageItem = ({ isOpen, holdNavOpen, closeNav, page }: Props) => {
   const router = useRouter();
   const pathname = usePathname();
   const [isSweeping, setIsSweeping] = useState(false);
+  const [sweepSize, setSweepSize] = useState<{ width: number; height: number } | null>(null);
   const [isNavigating, startNavigation] = useTransition();
   const barRef = useRef<HTMLSpanElement | null>(null);
   const { cover } = usePageTransition();
@@ -45,6 +59,9 @@ const NavPageItem = ({ isOpen, holdNavOpen, closeNav, page }: Props) => {
       return;
     }
 
+    if (barRef.current) {
+      setSweepSize(sweepSizeFrom(barRef.current));
+    }
     setIsSweeping(true);
     holdNavOpen();
 
@@ -73,26 +90,16 @@ const NavPageItem = ({ isOpen, holdNavOpen, closeNav, page }: Props) => {
     barRef.current?.addEventListener("transitionend", navigate, { once: true });
   };
 
-  const spanClasses =
-    `${spanStyle}` +
-    `${isOpen && isAnimating ? activeSpanStyle : ""}` +
-    `${isAnimating ? `${openSpanStyle} ${bg}` : ""}`;
+  const spanClasses = `${spanStyle} ${isOpen && isAnimating ? activeSpanStyle : ""} ${isAnimating ? bg : ""}`;
 
   const parentClasses = `${pageSectionStyle} ${!isAnimating ? `${textHover} ${bgHover} ${nonAnimatingPageHoverStyles}` : ""}`;
 
   const labelClasses = `${linkStyle}` + `${isAnimating ? text : ""}`;
 
   return (
-    <Link
-      href={slug}
-      prefetch
-      onClick={handleClick}
-      aria-hidden={isOpen ? undefined : true}
-      tabIndex={isOpen ? 0 : -1}
-      className={parentClasses}
-    >
+    <Link href={slug} prefetch onClick={handleClick} inert={!isOpen} className={parentClasses}>
       <h3 className={labelClasses}>{label}</h3>
-      <span ref={barRef} className={spanClasses} />
+      <span ref={barRef} className={spanClasses} style={isAnimating && sweepSize ? sweepSize : undefined} />
     </Link>
   );
 };

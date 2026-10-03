@@ -1,6 +1,7 @@
 "use client";
 import { motion } from "motion/react";
 import { useEffect, useRef, useState } from "react";
+import { BASE_S } from "../constants/motion";
 import { coverVideoStage } from "../utils/coverVideoStage";
 import whenMediaShowable from "../utils/whenMediaShowable";
 
@@ -97,7 +98,7 @@ const CaseCoverVideo = ({ src, critical = false, className = "" }: Props) => {
       data-intro-critical={critical || undefined}
       initial={{ opacity: isHandoff ? 1 : 0 }}
       animate={{ opacity: isPlaying ? 1 : 0 }}
-      transition={{ duration: isHandoff ? 0 : 0.5, ease: "easeOut" }}
+      transition={{ duration: isHandoff ? 0 : BASE_S, ease: "easeOut" }}
       onLoadedMetadata={isHandoff ? syncToStage : undefined}
       onPlaying={handlePlaying}
     >

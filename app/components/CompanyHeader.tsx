@@ -37,6 +37,6 @@ const linkStyles = `
   hover:decoration-red-800
   focus-visible:text-red-800
   transition-colors
-  duration-300
+  duration-(--motion-fast)
   ease-in-out
 `;

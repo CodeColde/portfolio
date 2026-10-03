@@ -1,7 +1,7 @@
 import { animate } from "motion";
+import { FAST_S } from "../constants/motion";
 
 const STUCK_FALLBACK_MS = 8000;
-const FADE_OUT_S = 0.25;
 
 let container: HTMLDivElement | null = null;
 let adopted: HTMLVideoElement | null = null;
@@ -27,7 +27,7 @@ const release = () => {
     cleanup();
     return;
   }
-  animate(stage, { opacity: 0 }, { duration: FADE_OUT_S, ease: "easeOut" }).finished.then(cleanup);
+  animate(stage, { opacity: 0 }, { duration: FAST_S, ease: "easeOut" }).finished.then(cleanup);
 };
 
 export const coverVideoStage = {

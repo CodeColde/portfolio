@@ -32,7 +32,7 @@ export default CaseLink;
 const collapseClasses = `
   grid
   transition-[grid-template-rows,opacity]
-  duration-300
+  duration-(--motion-base)
   ease-in-out
 `;
 
@@ -54,6 +54,6 @@ const linkClasses = `
   hover:text-white
   hover:border-red-800
   transition-[background,color,border,transform]
-  duration-300
+  duration-(--motion-fast)
   ease-in-out
 `;
