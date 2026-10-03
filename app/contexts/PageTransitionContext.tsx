@@ -2,9 +2,8 @@
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { usePathname } from "next/navigation";
 import { createContext, type ReactNode, useCallback, useContext, useEffect, useMemo, useState } from "react";
+import { BASE_S, EASE } from "../constants/motion";
 
-const EASE: [number, number, number, number] = [0.45, 0, 0.55, 1];
-const REVEAL_DURATION_S = 0.5;
 const STUCK_FALLBACK_MS = 5000;
 
 interface Cover {
@@ -49,7 +48,7 @@ export const PageTransitionProvider = ({ children }: { children: ReactNode }) =>
             className={`fixed inset-0 z-4 pointer-events-none ${cover.bgClass}`}
             initial={false}
             exit={{ opacity: 0 }}
-            transition={{ duration: reduceMotion ? 0 : REVEAL_DURATION_S, ease: EASE }}
+            transition={{ duration: reduceMotion ? 0 : BASE_S, ease: EASE }}
           />
         )}
       </AnimatePresence>

@@ -1,6 +1,7 @@
 "use client";
 
 import { motion, useScroll, useTransform } from "motion/react";
+import { BASE_S } from "../constants/motion";
 
 const FADE_IN_DELAY_S = 2;
 const FADE_OUT_SCROLL_PX = 100;
@@ -46,7 +47,7 @@ const ScrollIndicator = () => {
       className="absolute bottom-[4%] left-1/2 -translate-x-1/2"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
-      transition={{ delay: FADE_IN_DELAY_S, duration: 0.3, ease: "easeInOut" }}
+      transition={{ delay: FADE_IN_DELAY_S, duration: BASE_S, ease: "easeInOut" }}
       aria-hidden
     >
       <motion.div style={{ opacity: scrollOpacity }} className="flex flex-col items-center">

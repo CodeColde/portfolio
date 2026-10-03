@@ -6,31 +6,27 @@ export interface SanityLinkValue {
   href: string;
   _key: string;
   _type: string;
-};
+}
 
-const ContentLink = ({ children, value }: PortableTextMarkComponentProps<SanityLinkValue>) => {
+interface Props extends PortableTextMarkComponentProps<SanityLinkValue> {
+  className?: string;
+}
+
+const ContentLink = ({ children, value, className }: Props) => {
   const target = (value?.href || "").startsWith("http") ? "_blank" : undefined;
   const rel = target === "_blank" ? "noindex nofollow" : "";
-  const classes = "text-blue-800 hover:text-red-800 underline";
+  const classes = className ?? "text-blue-800 hover:text-red-800 underline";
 
   if (!value?.href) {
     return <>{children}</>;
   }
 
   return target === "_blank" ? (
-    <a
-      href={value.href}
-      target={target}
-      rel={rel}
-      className={classes}
-    >
+    <a href={value.href} target={target} rel={rel} className={classes}>
       {children}
     </a>
   ) : (
-    <Link
-      href={value.href}
-      className={classes}
-    >
+    <Link href={value.href} className={classes}>
       {children}
     </Link>
   );

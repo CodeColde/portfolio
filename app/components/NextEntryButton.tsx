@@ -3,11 +3,14 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { motion, useReducedMotion } from "motion/react";
+import { EASE, FAST_S, MOVE_S } from "../constants/motion";
 import { usePageTransition } from "../contexts/PageTransitionContext";
 
 interface Props {
-  slug: string;
+  href: string;
   title: string;
+  label: string;
+  bgClass: string;
 }
 
 interface Origin {
@@ -19,13 +22,9 @@ interface Origin {
   viewportHeight: number;
 }
 
-const SECTION_BG = "bg-red-800";
-const EASE: [number, number, number, number] = [0.45, 0, 0.55, 1];
 const FILL_RADIUS_PX = 32;
-const FADE_MS = 120;
-const EXPAND_S = 0.3;
 
-const NextCaseButton = ({ slug, title }: Props) => {
+const NextEntryButton = ({ href, title, label, bgClass }: Props) => {
   const router = useRouter();
   const { cover } = usePageTransition();
   const reduceMotion = useReducedMotion();
@@ -33,8 +32,6 @@ const NextCaseButton = ({ slug, title }: Props) => {
   const timers = useRef<ReturnType<typeof setTimeout>[]>([]);
   const [isLeaving, setIsLeaving] = useState(false);
   const [origin, setOrigin] = useState<Origin | null>(null);
-
-  const href = `/${slug}`;
 
   useEffect(
     () => () => {
@@ -46,7 +43,7 @@ const NextCaseButton = ({ slug, title }: Props) => {
   );
 
   const navigate = () => {
-    cover(SECTION_BG);
+    cover(bgClass);
     router.push(href);
   };
 
@@ -80,29 +77,29 @@ const NextCaseButton = ({ slug, title }: Props) => {
           viewportHeight: window.innerHeight,
         });
 
-        timers.current.push(setTimeout(navigate, EXPAND_S * 1000));
-      }, FADE_MS),
+        timers.current.push(setTimeout(navigate, MOVE_S * 1000));
+      }, FAST_S * 1000),
     );
   };
 
   return (
     <div className={wrapperClasses}>
-      <span className={`${eyebrowClasses} ${isLeaving ? "opacity-0" : "opacity-60"}`}>Next case</span>
+      <span className={`${eyebrowClasses} ${isLeaving ? "opacity-0" : "opacity-60"}`}>{label}</span>
       <Link
         ref={linkRef}
         href={href}
         prefetch
         onClick={handleClick}
-        aria-label={`Next case: ${title}`}
+        aria-label={`${label}: ${title}`}
         className={`${linkClasses} ${isLeaving ? "border-transparent" : "border-black hover:text-white"}`}
       >
-        <span aria-hidden className={`${fillClasses} ${isLeaving ? activeFillClasses : hoverFillClasses}`} />
+        <span aria-hidden className={`${fillClasses} ${bgClass} ${isLeaving ? activeFillClasses : hoverFillClasses}`} />
         <span className={`${labelClasses} ${isLeaving ? "opacity-0" : "opacity-100"}`}>{title}</span>
       </Link>
       {origin && (
         <motion.div
           aria-hidden
-          className={`fixed z-4 pointer-events-none ${SECTION_BG}`}
+          className={`fixed z-4 pointer-events-none ${bgClass}`}
           initial={{
             top: origin.top,
             left: origin.left,
@@ -117,14 +114,14 @@ const NextCaseButton = ({ slug, title }: Props) => {
             height: origin.viewportHeight,
             borderRadius: 0,
           }}
-          transition={{ duration: EXPAND_S, ease: EASE }}
+          transition={{ duration: MOVE_S, ease: EASE }}
         />
       )}
     </div>
   );
 };
 
-export default NextCaseButton;
+export default NextEntryButton;
 
 const wrapperClasses = `
   mt-24
@@ -141,7 +138,7 @@ const eyebrowClasses = `
   uppercase
   tracking-[0.2em]
   transition-opacity
-  duration-100
+  duration-(--motion-fast)
   ease-in-out
 `;
 
@@ -163,7 +160,7 @@ const linkClasses = `
   inline-block
   overflow-hidden
   transition-[color,border-color]
-  duration-150
+  duration-(--motion-fast)
   ease-in-out
 `;
 
@@ -172,13 +169,12 @@ const fillClasses = `
   left-0
   right-0
   rounded-4xl
-  bg-red-800
   transition-[opacity,top,bottom]
   ease-in-out
 `;
 
 const hoverFillClasses = `
-  duration-150
+  duration-(--motion-fast)
   top-1/2
   bottom-1/2
   opacity-0
@@ -191,7 +187,7 @@ const hoverFillClasses = `
 `;
 
 const activeFillClasses = `
-  duration-100
+  duration-(--motion-fast)
   top-0
   bottom-0
   opacity-100
@@ -201,6 +197,6 @@ const labelClasses = `
   relative
   z-1
   transition-opacity
-  duration-100
+  duration-(--motion-fast)
   ease-in-out
 `;

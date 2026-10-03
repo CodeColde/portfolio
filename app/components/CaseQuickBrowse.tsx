@@ -102,7 +102,7 @@ const dotClasses = `
   rounded-full
   bg-white
   transition-[height,width,background-color,margin]
-  duration-200
+  duration-(--motion-fast)
   ease-in-out
   group-hover:bg-red-500
   group-hover:w-4
@@ -123,7 +123,7 @@ const labelClasses = `
   mt-[2px]
   opacity-0
   transition-[opacity,padding]
-  duration-200
+  duration-(--motion-fast)
   ease-in-out
   group-hover:opacity-100
   group-hover:pl-3

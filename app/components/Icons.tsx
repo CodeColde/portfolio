@@ -6,7 +6,7 @@ interface SocialAnchorProps {
 const SocialAnchor = ({ href, children }: SocialAnchorProps) => {
   return (
     <a
-      className="opacity-50 block h-full transition-opacity duration-100 ease-in-out"
+      className="opacity-50 block h-full transition-opacity duration-(--motion-fast) ease-in-out"
       href={href}
       target="_blank"
       rel="noreferrer noopener"

@@ -7,7 +7,7 @@ import Content from "@/app/components/Content";
 import BodySectionHeader from "@/app/components/BodySectionHeader";
 import ProjectLink from "@/app/components/ProjectLink";
 import ContentParagraph from "@/app/components/ContentParagraph";
-import NextCaseButton from "@/app/components/NextCaseButton";
+import NextEntryButton from "@/app/components/NextEntryButton";
 
 interface PageProps {
   params: Promise<{ slug: string }>;
@@ -66,7 +66,9 @@ const page = async ({ params }: PageProps) => {
         <BodySectionHeader>Responsibilities</BodySectionHeader>
         <Content>{caseDetails.responsibilities}</Content>
       </section>
-      {nextCase && <NextCaseButton slug={nextCase.slug} title={nextCase.title} />}
+      {nextCase && (
+        <NextEntryButton href={`/${nextCase.slug}`} title={nextCase.title} label="Next case" bgClass="bg-red-800" />
+      )}
     </main>
   );
 };

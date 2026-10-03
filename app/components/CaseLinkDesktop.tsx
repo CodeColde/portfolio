@@ -55,7 +55,7 @@ const labelClasses = `
   text-shadow-sm
   mb-[24px]
   transition-[transform,color]
-  duration-500
+  duration-(--motion-base)
   ease-in-out
 `;
 
@@ -68,6 +68,6 @@ const spanClasses = `
   -translate-x-1/2
   -translate-y-[80%]
   transition-[width,background-color]
-  duration-300
+  duration-(--motion-base)
   ease-in-out
 `;

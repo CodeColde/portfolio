@@ -81,8 +81,6 @@ export const pageSectionStyle = `
   my-2
   uppercase
   font-bold
-  transition-duration-700
-  ease-in-out
   hover:cursor-pointer
   hover:[&>h3]:opacity-100
   hover:[&>h3]:-skew-x-20
@@ -101,7 +99,7 @@ export const linkStyle = `
   opacity-70
   no-underline
 	transition-[transform,width]
-  transition-duration-500
+  duration-(--motion-base)
 	ease-in-out
   max-sm:text-7xl
 `;
@@ -117,13 +115,8 @@ export const spanStyle = `
 export const activeSpanStyle = `
   z-99
   transition-[width,height]
-  duration-400
+  duration-(--motion-move)
   ease-in-out
-`;
-
-export const openSpanStyle = `
-  w-[2000%]
-  h-[3000%]
 `;
 
 export const contactContainerStyle = `

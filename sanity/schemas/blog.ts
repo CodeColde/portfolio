@@ -39,9 +39,14 @@ export const blog = {
             {
               name: "alt",
               type: "string",
-              title: "Alt text"
-            }
-          ]
+              title: "Alt text",
+            },
+            {
+              name: "caption",
+              type: "string",
+              title: "Caption",
+            },
+          ],
         },
       ],
     },
@@ -51,5 +56,5 @@ export const blog = {
       type: "datetime",
       initialValue: () => new Date().toISOString(),
     },
-  ]
-}
+  ],
+};

@@ -22,6 +22,7 @@ import type { PageKeys } from "../constants/pageIndex";
 import { usePathname } from "next/navigation";
 import SocialContainer from "./SocialContainer";
 import ContactContainer from "./ContactContainer";
+import { FAST_S, MOVE_S } from "../constants/motion";
 
 const NavMenu = () => {
   const pathName = usePathname();
@@ -46,10 +47,10 @@ const NavMenu = () => {
     setAnimateOn(pathName);
     if (isOpen) {
       setHasSettled(false);
-      setTimeout(() => setHasSettled(true), 600);
+      setTimeout(() => setHasSettled(true), (FAST_S + MOVE_S) * 1000);
       setIsFadingOut(true);
       clearTimeout(fadeTimeout.current);
-      fadeTimeout.current = setTimeout(() => setIsFadingOut(false), 300);
+      fadeTimeout.current = setTimeout(() => setIsFadingOut(false), FAST_S * 1000);
       setOpenedOn(null);
     } else {
       setOpenedOn(pathName);
@@ -82,7 +83,7 @@ const NavMenu = () => {
             : navContainerCloseStyle
         }`}
         style={{
-          transition: `background-color ${isOpen ? "0.4s" : "0.1s"} ease-in-out, border-radius ${isOpen ? "0.9s" : "0.1s"} ease-in-out`,
+          transition: `background-color ${isOpen ? MOVE_S : FAST_S}s ease-in-out, border-radius ${isOpen ? MOVE_S : FAST_S}s ease-in-out`,
         }}
       >
         <NavButton open={isOpen} />
