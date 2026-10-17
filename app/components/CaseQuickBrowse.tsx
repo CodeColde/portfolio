@@ -54,7 +54,7 @@ const CaseQuickBrowse = ({ data }: Props) => {
   };
 
   return (
-    <nav aria-label="Cases" className="fixed top-1/2 left-4 -translate-y-1/2 z-4 flex flex-col">
+    <nav aria-label="Cases" className="fixed top-1/2 left-4 -translate-y-1/2 z-4 flex flex-col max-sm:hidden">
       {data.map(({ id, label }) => {
         const isActive = id === activeId;
 
